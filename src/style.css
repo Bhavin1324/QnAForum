@@ -25,4 +25,8 @@
     @apply text-lg bg-[#1b8c94] py-2 px-4 h-11 rounded-md transition-all duration-300 ease-out hover:bg-[#0f595d] focus:bg-[#0f595d];
 }
 
+/* Radio button put this class in label */
+.radio-btn{
+    @apply relative before:inline-block before:w-[20px] before:h-[20px] before:border-2 before:border-[#1b8c94] before:rounded-full before:-mb-1 before:mr-2 after:content-[''] after:w-[12px] after:h-[12px] after:inline-block after:bg-[rgba(27,140,148,0)] after:absolute after:top-[5px] after:left-[4px] after:rounded-full after:transition-all duration-200 ease-in after:peer-checked:bg-[rgba(27,140,148,1)]
+}
 @tailwind utilities;

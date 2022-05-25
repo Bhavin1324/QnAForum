@@ -1,3 +1,4 @@
+// hamburger
 let hamburger = document.querySelector('.hamburger');
 let menu = document.querySelector('.nav-menu');
 let navbar = document.querySelector('.navbar');
@@ -13,4 +14,5 @@ document.querySelectorAll('.nav-item').forEach(n => n.addEventListener('click', 
     navbar.classList.toggle('light-up');
 }));
 
+//validation
 
