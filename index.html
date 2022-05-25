@@ -87,73 +87,72 @@
                 <div class="descript md:w-[55%] md:ml-auto px-4 pb-10 pt-20 flex flex-col justify-center gap-1">
                     <div id="login" class="w-full text-[#0e4667] text-4xl font-bold font-casc mb-6 select-none">Login
                     </div>
-                    <div class="label text-lg select-none">Email:</div>
-                    <div class="w-full"><input type="email" name="email" id="email"
-                            class="mt-1 mb-2 px-3 py-2 bg-white border shadow-md border-slate-400 placeholder-slate-400 focus:outline-none focus:border-[#1b8c94] focus:ring-[#1b8c94] block w-full md:w-[80%] lg:w-[60%] rounded-md sm:text-sm focus:ring-1"
-                            placeholder="example@gmail.com"></div>
+                    <div class="label text-lg select-none">University Email:</div>
+                    <div class="w-full"><input type="email" name="logemail" id="logemail"
+                            class="form-inputBox md:w-[90%] lg:w-[80%] xl:w-[60%]" placeholder="example@university.com"></div>
                     <div class="label text-lg select-none">Password:</div>
-                    <div class="w-full"><input type="password" name="pass" id="pass"
-                            class="mt-1 px-3 py-2 bg-white border shadow-md border-slate-400 placeholder-slate-400 focus:outline-none focus:border-[#1b8c94] focus:ring-[#1b8c94] block w-full md:w-[80%] lg:w-[60%] rounded-md sm:text-sm focus:ring-1">
+                    <div class="w-full"><input type="password" name="logpass" id="logpass"
+                            class="form-inputBox md:w-[90%] lg:w-[80%] xl:w-[60%]">
                     </div>
                     <div class="buttons flex justify-between w-full md:w-[80%] lg:w-[60%]">
-                        <button type="submit" value="submit" class="cool-btn text-xl select-none">Login</button>
-                        <button type="submit" value="submit"
+                        <button type="submit" value="submit" class="cool-btn text-xl select-none" id="login">Login</button>
+                        <!-- <button type="submit" value="submit"
                             class="btn mt-[15px] inline-flex justify-center align-center">
                             <span class="text-white select-none">Sign up with </span>
                             <span class="inline-block w-[40px]">
                                 <img src="./Assets/images/google.ico" alt=""
                                     class="h-[25px] w-[25px] ml-3 mt-[.1rem] invert">
                             </span>
-                        </button>
+                        </button> -->
                     </div>
                     <div class="px-2 text-lg font-semibold select-none">Don't have an account? <a href="#regPopup"
                             class="text-[#0e4667] font-casc underline select-none">Sign Up</a></div>
+                    <div class="px-2 text-lg font-semibold select-none"> Forgot password? <a href="#forgotPass"
+                            class="text-[#0e4667] font-casc underline select-none">Change password</a></div>
                 </div>
             </form>
         </div>
     </section>
+    <!-- Registration form -->
     <div id="regPopup"
-        class="z-[2] fixed top-0 left-0 bottom-0 right-0 bg-[rgba(0,0,0,.8)] hidden target:block select-none">
-        <div class=" w-full sm:w-[80%] md:[60%] lg:w-[40%] wrapper my-[70px] mx-auto bg-[#d4efea] relative rounded-md">
-            <a href="" class="close absolute top-2 right-6 font-bold text-2xl">&times;</a>
+        class="z-[2] fixed top-0 left-0 bottom-0 right-0 bg-[rgba(0,0,0,.8)] hidden target:block select-none overflow-scroll">
+        <div class=" w-full sm:w-[80%] md:[60%] lg:w-[50%] wrapper my-[10px] sm:my-[30px] lg:my-[50px] mx-auto bg-[#d4efea] relative rounded-lg">
+            <a href="#login" class="close absolute top-2 right-6 font-bold text-2xl">&times;</a>
             <div class="content max-h-[50%] overflow-auto">
                 <h3 class="text-2xl font-semibold text-center mt-11 mb-4">Register to <span
                         class="font-casc bg-[#0e4667] text-white px-1 py-2 rounded-md">Cube</span></h3>
                 <form action="" method="post" class="w-[80%] my-1 mx-auto">
-                    <div class="text-lg">First name</div>
-                    <input type="text" name="name" id="name"
-                        class="mt-1 mb-3 px-3 py-2 bg-white border shadow-md border-slate-400 placeholder-slate-400 focus:outline-none focus:border-[#1b8c94] focus:ring-[#1b8c94] block w-full rounded-md sm:text-sm focus:ring-1">
+                    <div class="flex gap-2">
+                        <div class="text-lg w-1/2">First name
+                            <input type="text" name="fname" id="fname" class="form-inputBox">
+                        </div>
+                        <div class="text-lg w-1/2">Last name
+                            <input type="text" name="lname" id="lname" class="form-inputBox">
+                        </div>
+                    </div>
                     <div class="text-lg">Email</div>
-                    <input type="email" name="email" id="email"
-                        class="mt-1 mb-3 px-3 py-2 bg-white border shadow-md border-slate-400 placeholder-slate-400 focus:outline-none focus:border-[#1b8c94] focus:ring-[#1b8c94] block w-full rounded-md sm:text-sm focus:ring-1"
-                        placeholder="example@gmail.com">
+                    <input type="email" name="regemail" id="regemail" class="form-inputBox"
+                        placeholder="example@university.com">
                     <div class="text-lg">Password</div>
-                    <input type="password" name="pass" id="pass"
-                        class="mt-1 mb-3 px-3 py-2 bg-white border shadow-md border-slate-400 placeholder-slate-400 focus:outline-none focus:border-[#1b8c94] focus:ring-[#1b8c94] block w-full rounded-md sm:text-sm focus:ring-1">
-                    <div class="text-lg">Unversity Name</div>
-                    <input type="text" name="dob" id="dob"
-                        class="mt-1 mb-3 px-3 py-2 bg-white border shadow-md border-slate-400 placeholder-slate-400 focus:outline-none focus:border-[#1b8c94] focus:ring-[#1b8c94] block w-full rounded-md sm:text-sm focus:ring-1">
+                    <input type="password" name="regpass" id="regpass" class="form-inputBox">
                     <div class="text-lg">Date of birth</div>
-                    <input type="date"
-                        class="mt-1 mb-3 px-3 py-2 bg-white border shadow-md border-slate-400 placeholder-slate-400 focus:outline-none focus:border-[#1b8c94] focus:ring-[#1b8c94] block w-full rounded-md sm:text-sm focus:ring-1">
-                    <div class="fields flex justify-between gap-1">
+                    <input type="date" class="form-inputBox" id="dob">
+                    <div class="fields flex justify-between gap-2">
                         <div class="w-1/2 text-lg">Graduation Year
-                            <select name="" id="gradYear"
-                                class="mt-1 mb-3 px-3 py-2 bg-white border shadow-md border-slate-400 placeholder-slate-400 focus:outline-none focus:border-[#1b8c94] focus:ring-[#1b8c94] block w-full rounded-md sm:text-sm focus:ring-1">
+                            <select name="" id="gradYear" class="form-inputBox">
                                 <option value="0">Graduation Year</option>
-                                <option value="0">2022</option>
-                                <option value="0">2023</option>
-                                <option value="0">2024</option>
-                                <option value="0">2025</option>
-                                <option value="0">2026</option>
-                                <option value="0">2027</option>
-                                <option value="0">2028</option>
-                                <option value="0">2029</option>
+                                <option value="2022">2022</option>
+                                <option value="2023">2023</option>
+                                <option value="2024">2024</option>
+                                <option value="2025">2025</option>
+                                <option value="2026">2026</option>
+                                <option value="2027">2027</option>
+                                <option value="2028">2028</option>
+                                <option value="2029">2029</option>
                             </select>
                         </div>
                         <div class="w-1/2 text-lg">Semester
-                            <select name="" id="semester"
-                                class="mt-1 mb-3 px-3 py-2 bg-white border shadow-md border-slate-400 placeholder-slate-400 focus:outline-none focus:border-[#1b8c94] focus:ring-[#1b8c94] block w-full rounded-md sm:text-sm focus:ring-1">
+                            <select name="" id="semester" class="form-inputBox">
                                 <option value="0">Semester</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -168,7 +167,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="text-lg mb-1">Register as</div>
+                    <!-- <div class="text-lg mb-1">Register as</div>
                     <div class="radio-wrapper flex gap-4">
                         <div class="form-radio">
                             <input type="radio" name="ras" id="prof" class="peer hidden"><label for="prof"
@@ -178,10 +177,34 @@
                             <input type="radio" name="ras" id="stud" class="peer hidden"><label for="stud"
                                 class="radio-btn">Student</label>
                         </div>
-                    </div>
-                    <div class="mb-6 text-right">
+                    </div> -->
+                    <div class="mb-6">
                         <button type="submit" value="submit" name="submit" id="signup"
                             class="cool-btn">Register</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Forgot password form -->
+    <div id="forgotPass"
+        class="z-[2] fixed top-0 left-0 bottom-0 right-0 bg-[rgba(0,0,0,.8)] hidden target:block select-none">
+        <div class=" w-full sm:w-[80%] md:[60%] lg:w-[50%] wrapper my-[10px] sm:my-[30px] lg:my-[50px] mx-auto bg-[#d4efea] relative rounded-lg">
+            <a href="#login" class="close absolute top-2 right-6 font-bold text-2xl">&times;</a>
+            <div class="content max-h-[50%] overflow-auto">
+                <h3 class="text-2xl font-semibold text-center mt-11 mb-4">Change your <span
+                        class="font-casc bg-[#0e4667] text-white px-1 py-2 rounded-md">Cube</span> Password</h3>
+                <form action="" method="post" class="w-[80%] my-1 mx-auto">
+                    <div class="text-lg">Unviversity Email</div>
+                    <input type="email" name="fpemail" id="fpemail" class="form-inputBox"
+                        placeholder="example@university.com">
+                    <div class="text-lg">Password</div>
+                    <input type="password" name="fppass" id="fppass" class="form-inputBox">
+                    <div class="text-lg">Re-enter Password</div>
+                    <input type="password" name="refppass" id="refppass" class="form-inputBox">
+                    <div class="mb-6 text-right">
+                        <button type="submit" value="submit" name="submit" id="changePass" class="cool-btn">Change
+                            password</button>
                     </div>
                 </form>
             </div>

@@ -29,4 +29,8 @@
 .radio-btn{
     @apply relative before:inline-block before:w-[20px] before:h-[20px] before:border-2 before:border-[#1b8c94] before:rounded-full before:-mb-1 before:mr-2 after:content-[''] after:w-[12px] after:h-[12px] after:inline-block after:bg-[rgba(27,140,148,0)] after:absolute after:top-[5px] after:left-[4px] after:rounded-full after:transition-all duration-200 ease-in after:peer-checked:bg-[rgba(27,140,148,1)]
 }
+
+.form-inputBox{
+    @apply mt-1 mb-3 px-3 py-2 bg-white border shadow-md border-slate-400 placeholder-slate-400 focus:outline-none focus:border-[#1b8c94] focus:ring-[#1b8c94] block w-full rounded-md sm:text-sm focus:ring-1
+}
 @tailwind utilities;
