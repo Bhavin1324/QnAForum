@@ -1,5 +1,5 @@
 module.exports = {
-  content: ["./src/**/*.{html,js}","*","./node_modules/tw-elements/dist/js/**/*.js"],
+  content: ["./src/**/*.{html,js}","*","./Pages/**/*.{html,js}"],
   theme: {
     extend: {
       fontFamily:{

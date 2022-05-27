@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="./Assets/style.css">
     <title>Document</title>
     <script src="./Assets/JS/utility.js" defer></script>
-    <script src="https://unpkg.com/flowbite@1.4.7/dist/datepicker.js" defer></script>
+    <script src="./Assets/JS/validation.js" defer></script>
 </head>
 
 <body>
@@ -19,19 +19,19 @@
                 <span class="self-center text-2xl font-casc mr-10">Cube</span>
             </div>
             <ul class="hidden md:flex md:self-center md:gap-12">
-                <li class="transition-all duration-200 ease-in"><a href="#" class="peer">Home</a>
+                <li class="transition-all duration-200 ease-in"><a href="#" class="peer focus:outline-none">Home</a>
                     <hr class="transition-all duration-200 ease w-0 peer-hover:w-full peer-focus:w-full">
                 </li>
-                <li class="transition-all duration-200 ease-in"><a href="#" class="peer">Product</a>
+                <li class="transition-all duration-200 ease-in"><a href="#" class="peer focus:outline-none">Product</a>
                     <hr class="transition-all duration-200 ease w-0 peer-hover:w-full peer-focus:w-full">
                 </li>
-                <li class="transition-all duration-200 ease-in"><a href="#" class="peer">Pricing</a>
+                <li class="transition-all duration-200 ease-in"><a href="#" class="peer focus:outline-none">Pricing</a>
                     <hr class="transition-all duration-200 ease w-0 peer-hover:w-full peer-focus:w-full">
                 </li>
-                <li class="transition-all duration-200 ease-in"><a href="#" class="peer">Support</a>
+                <li class="transition-all duration-200 ease-in"><a href="#" class="peer focus:outline-none">Support</a>
                     <hr class="transition-all duration-200 ease w-0 peer-hover:w-full peer-focus:w-full">
                 </li>
-                <li class="transition-all duration-200 ease-in"><a href="#" class="peer">About Us</a>
+                <li class="transition-all duration-200 ease-in"><a href="#" class="peer focus:outline-none">About Us</a>
                     <hr class="transition-all duration-200 ease w-0 peer-hover:w-full peer-focus:w-full">
                 </li>
             </ul>
@@ -75,7 +75,7 @@
                     share their
                     knowledge from one person to another through <span class="font-casc">Cube</span> Q&A forum</div>
                 <div class="buttons">
-                    <button class="cool-btn text-xl select-none"><a href="#login">Get Started</a></button>
+                    <button class="cool-btn text-xl select-none"><a href="#login" class="focus:outline-none">Get Started</a></button>
                 </div>
             </div>
         </div>
@@ -85,17 +85,19 @@
         <div class="section container mx-auto">
             <form action="" method="post">
                 <div class="descript md:w-[55%] md:ml-auto px-4 pb-10 pt-20 flex flex-col justify-center gap-1">
-                    <div id="login" class="w-full text-[#0e4667] text-4xl font-bold font-casc mb-6 select-none">Login
+                    <div class="w-full text-[#0e4667] text-4xl font-bold font-casc mb-6 select-none">Login
                     </div>
-                    <div class="label text-lg select-none">University Email:</div>
+                    <div class="label text-lg select-none text-[#0e4667]">University Email </div>
                     <div class="w-full"><input type="email" name="logemail" id="logemail"
-                            class="form-inputBox md:w-[90%] lg:w-[80%] xl:w-[60%]" placeholder="example@university.com"></div>
-                    <div class="label text-lg select-none">Password:</div>
+                            class="Email form-inputBox md:w-[90%] lg:w-[80%] xl:w-[60%]"
+                            placeholder="example@university.com" required></div>
+                    <div class="label text-lg select-none text-[#0e4667]">Password </div>
                     <div class="w-full"><input type="password" name="logpass" id="logpass"
-                            class="form-inputBox md:w-[90%] lg:w-[80%] xl:w-[60%]">
+                            class="Password form-inputBox md:w-[90%] lg:w-[80%] xl:w-[60%]">
                     </div>
                     <div class="buttons flex justify-between w-full md:w-[80%] lg:w-[60%]">
-                        <button type="submit" value="submit" class="cool-btn text-xl select-none" id="login">Login</button>
+                        <button type="submit" value="submit" class="cool-btn text-xl select-none"
+                            id="login">Login</button>
                         <!-- <button type="submit" value="submit"
                             class="btn mt-[15px] inline-flex justify-center align-center">
                             <span class="text-white select-none">Sign up with </span>
@@ -115,31 +117,36 @@
     </section>
     <!-- Registration form -->
     <div id="regPopup"
-        class="z-[2] fixed top-0 left-0 bottom-0 right-0 bg-[rgba(0,0,0,.8)] hidden target:block select-none overflow-scroll">
-        <div class=" w-full sm:w-[80%] md:[60%] lg:w-[50%] wrapper my-[10px] sm:my-[30px] lg:my-[50px] mx-auto bg-[#d4efea] relative rounded-lg">
+        class="z-[2] fixed top-0 left-0 bottom-0 right-0 bg-[rgba(0,0,0,.8)] hidden target:block select-none overflow-auto">
+        <div
+            class=" w-full sm:w-[80%] md:[60%] lg:w-[50%] wrapper my-[10px] sm:my-[30px] lg:my-[50px] mx-auto bg-[#d4efea] relative rounded-lg">
             <a href="#login" class="close absolute top-2 right-6 font-bold text-2xl">&times;</a>
             <div class="content max-h-[50%] overflow-auto">
                 <h3 class="text-2xl font-semibold text-center mt-11 mb-4">Register to <span
                         class="font-casc bg-[#0e4667] text-white px-1 py-2 rounded-md">Cube</span></h3>
                 <form action="" method="post" class="w-[80%] my-1 mx-auto">
                     <div class="flex gap-2">
-                        <div class="text-lg w-1/2">First name
-                            <input type="text" name="fname" id="fname" class="form-inputBox">
+                        <div class="text-lg w-1/2">
+                            <div>First name</div>
+                            <div><input type="text" name="fname" id="fname" class="First-name form-inputBox"></div>
                         </div>
-                        <div class="text-lg w-1/2">Last name
-                            <input type="text" name="lname" id="lname" class="form-inputBox">
+                        <div class="text-lg w-1/2">
+                            <div>Last name</div>
+                            <div><input type="text" name="lname" id="lname" class="Last-name form-inputBox"></div>
                         </div>
+
                     </div>
                     <div class="text-lg">Email</div>
-                    <input type="email" name="regemail" id="regemail" class="form-inputBox"
-                        placeholder="example@university.com">
-                    <div class="text-lg">Password</div>
-                    <input type="password" name="regpass" id="regpass" class="form-inputBox">
+                    <div><input type="email" name="regemail" id="regemail" class="Email form-inputBox"
+                            placeholder="example@university.com"></div>
+                    <div class="text-lg">Create Password</div>
+                    <div><input type="password" name="regpass" id="regpass" class="Password form-inputBox"></div>
                     <div class="text-lg">Date of birth</div>
-                    <input type="date" class="form-inputBox" id="dob">
+                    <div><input type="date" class="Date-of-birth form-inputBox" id="dob"></div>
                     <div class="fields flex justify-between gap-2">
-                        <div class="w-1/2 text-lg">Graduation Year
-                            <select name="" id="gradYear" class="form-inputBox">
+                        <div class="w-1/2 text-lg">
+                        <label for="gradYear">Graduation Year </label>
+                            <div><select  id="gradYear" name="gradYear" class="Last-year form-inputBox">
                                 <option value="0">Graduation Year</option>
                                 <option value="2022">2022</option>
                                 <option value="2023">2023</option>
@@ -149,10 +156,11 @@
                                 <option value="2027">2027</option>
                                 <option value="2028">2028</option>
                                 <option value="2029">2029</option>
-                            </select>
+                            </select></div>
                         </div>
-                        <div class="w-1/2 text-lg">Semester
-                            <select name="" id="semester" class="form-inputBox">
+                        <div class="w-1/2 text-lg">
+                        <label for="semester">Semester </label>
+                            <div><select id="semester" name="semester" class="Semester form-inputBox">
                                 <option value="0">Semester</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -164,7 +172,7 @@
                                 <option value="8">8</option>
                                 <option value="9">9</option>
                                 <option value="10">10</option>
-                            </select>
+                            </select></div>
                         </div>
                     </div>
                     <!-- <div class="text-lg mb-1">Register as</div>
@@ -189,19 +197,20 @@
     <!-- Forgot password form -->
     <div id="forgotPass"
         class="z-[2] fixed top-0 left-0 bottom-0 right-0 bg-[rgba(0,0,0,.8)] hidden target:block select-none">
-        <div class=" w-full sm:w-[80%] md:[60%] lg:w-[50%] wrapper my-[10px] sm:my-[30px] lg:my-[50px] mx-auto bg-[#d4efea] relative rounded-lg">
+        <div
+            class=" w-full sm:w-[80%] md:[60%] lg:w-[50%] wrapper my-[10px] sm:my-[30px] lg:my-[50px] mx-auto bg-[#d4efea] relative rounded-lg">
             <a href="#login" class="close absolute top-2 right-6 font-bold text-2xl">&times;</a>
             <div class="content max-h-[50%] overflow-auto">
                 <h3 class="text-2xl font-semibold text-center mt-11 mb-4">Change your <span
                         class="font-casc bg-[#0e4667] text-white px-1 py-2 rounded-md">Cube</span> Password</h3>
                 <form action="" method="post" class="w-[80%] my-1 mx-auto">
                     <div class="text-lg">Unviversity Email</div>
-                    <input type="email" name="fpemail" id="fpemail" class="form-inputBox"
-                        placeholder="example@university.com">
+                    <div><input type="email" name="fpemail" id="fpemail" class="Email form-inputBox"
+                        placeholder="example@university.com"></div>
                     <div class="text-lg">Password</div>
-                    <input type="password" name="fppass" id="fppass" class="form-inputBox">
+                    <div><input type="password" name="fppass" id="fppass" class="Password form-inputBox"></div>
                     <div class="text-lg">Re-enter Password</div>
-                    <input type="password" name="refppass" id="refppass" class="form-inputBox">
+                    <div><input type="password" name="refppass" id="refppass" class="Password form-inputBox"></div>
                     <div class="mb-6 text-right">
                         <button type="submit" value="submit" name="submit" id="changePass" class="cool-btn">Change
                             password</button>
@@ -211,4 +220,5 @@
         </div>
     </div>
 </body>
+
 </html>

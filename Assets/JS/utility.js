@@ -14,5 +14,4 @@ document.querySelectorAll('.nav-item').forEach(n => n.addEventListener('click', 
     navbar.classList.toggle('light-up');
 }));
 
-//validation
 
