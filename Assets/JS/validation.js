@@ -21,7 +21,7 @@ requireFieldValidator(elements,message) - follows the follwoing design structure
 
 first class name should contain proper context field name
 */
-export function expressionValidator(elem, fieldType) {
+function expressionValidator(elem, fieldType) {
     let regEx;
     switch (fieldType) {
         case "name":
@@ -93,7 +93,7 @@ export function expressionValidator(elem, fieldType) {
             }
     }
 }
-export function requireFieldValidator(...args) {
+function requireFieldValidator(...args) {
     let ee = 0;
     args.forEach(element => {
         if (!element.value.trim() || (element.selectedIndex == 0)) {
@@ -128,4 +128,6 @@ export function requireFieldValidator(...args) {
     return ee;
 }
 
-
+export default requireFieldValidator;
+export {expressionValidator};
+// *module.exports = requireFieldValidator;
