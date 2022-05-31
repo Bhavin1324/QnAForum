@@ -6,11 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../Assets/style.css">
+    <script src="https://kit.fontawesome.com/b361cd597d.js" crossorigin="anonymous"></script>
+    <script src="../Assets/JS/desk.js" type="module" defer></script>
     <title>Document</title>
 </head>
 
 <body>
-    <nav class="bg-[#0e4667] text-white sticky top-0 z-[2]">
+    <nav class="bg-[#0e4667] text-white z-[2]">
         <div class="container mx-auto flex flex-wrap justify-around ">
             <div class="branding flex ">
                 <span class="self-center text-2xl lg:text-3xl font-casc mr-10">Cube</span>
@@ -22,112 +24,173 @@
             </div>
         </div>
     </nav>
-    <div class="container my-2 mx-auto">
-
-        <div class="creatPostWrapper mx-2 mb-4 border-[1px] rounded-lg p-4 shadow-md bg-slate-200">
-            <div class="header px-2">
-                <div class="dp flex gap-1">
-                    <img src="../Assets/images/user.jpg" alt="" class="h-[40px] w-[40px] rounded-full">
-                    <div class="name-panel flex flex-col justify-center">
-                        <div class="username mx-3">Alex jenn</div>
-                    </div>
-                </div>
+    <nav class="bg-slate-100 py-1 sticky top-0 z-[1]">
+        <div class="nav-wrapper mx-auto flex justify-center gap-4">
+            <div class="question md:hidden">
+                <i class="fa fa-house pt-3 mx-3 text-lg text-[#0c4363] hover:text-[#1b8c94]"></i>
             </div>
-            <div class="main p-0 lg:p-4">
-                <div><input type="text" name="about" id="about" class="form-inputBox bg-[#f5f5f5] shadow-md" placeholder="Write a nice caption..."></div>
-                <textarea name="" id="" rows="3" class="resize-none w-full peer form-inputBox bg-[#f5f5f5]" placeholder="Write your thoughts..."></textarea>
-                <button class="btn">Create Post</button>
-            </div> 
+            <div class="newest md:hidden">
+                <i class="fa fa-circle-arrow-up pt-3 mx-3 text-lg text-[#0c4363] hover:text-[#1b8c94]"></i>
+            </div>
+            <div class="mypost md:hidden">
+                <i class="fa fa-address-card pt-3 mx-3 text-lg text-[#0c4363] hover:text-[#1b8c94]"></i>
+            </div>
+            <div class="collapse-search md:hidden">
+                <i class="fa fa-search pt-3 mx-3 text-lg text-[#0c4363] hover:text-[#1b8c94]"></i>
+            </div>
+            <div class="help md:hidden">
+                <i class="fa fa-handshake-angle pt-3 mx-3 text-lg text-[#0c4363] hover:text-[#1b8c94]"></i>
+            </div>
+            <input type="text" class="form-inputBox mb-1 hidden md:inline-block w-1/3"
+                placeholder="Search for the questions ...">
+            <button class="btn my-[5px] h-[35px] hidden md:inline-block">Search</button>
+            <a href="#createPost" class="btn my-[5px] pt-[5px] h-[35px] cursor-pointer">Ask Question</a>
         </div>
+        <div class="collapse-content container mx-auto md:hidden hidden justify-center">
+            <input type="text" class="form-inputBox mb-1 w-[70%]" placeholder="Search for the questions ...">
+            <button class="btn my-2 ml-2 h-[35px]">Search</button>
+        </div>
+    </nav>
+    <div class="container mt-2 mx-auto flex justify-center">
+        <!-- left navigation -->
+        <div class="hidden md:inline-block navigation-v w-[20%]">
+            <ul class="mx-2 my-2 sticky top-14 z-0">
 
-        <div class="postWrapper mx-2 mb-4 border-[1px] rounded-lg p-4 shadow-md bg-slate-200">
-            <div class="header px-2">
-                <div class="dp flex gap-1">
-                    <img src="../Assets/images/user.jpg" alt="" class="h-[40px] w-[40px] rounded-full">
-                    <div class="name-panel flex flex-col">
-                        <div class="username mx-3">Alex jenn<span class="follow"><a href=""
-                                    class="text-white bg-[#0f5a86] px-2 text-sm rounded-md transition-all duration-200 ease-in hover:text-white hover:bg-[#0c4363] mx-3">Follow</a></span>
+                <li
+                    class="ln newest-ln my-1 py-2 px-2 hover:bg-slate-200 hover:border-l-2 hover:border-l-[#0c4363] cursor-pointer">
+                    <i class="fa fa-house pt-1 text-xl text-[#0c4363] hover:text-[#1b8c94] mr-3"></i><a href="#"
+                        class="active:text-[#1b8c94]">Questions</a>
+                </li>
+                <li
+                    class="ln newest-ln my-1 py-2 px-2 hover:bg-slate-200 hover:border-l-2 hover:border-l-[#0c4363] cursor-pointer">
+                    <i class="fa fa-circle-arrow-up pt-1 text-xl text-[#0c4363] hover:text-[#1b8c94] mr-3"></i><a
+                        href="#" class="active:text-[#1b8c94]">Newest</a>
+                </li>
+                <li
+                    class="ln mypost-ln my-1 py-2 px-2 hover:bg-slate-200 hover:border-l-2 hover:border-l-[#0c4363] cursor-pointer">
+                    <i class="fa fa-address-card pt-1 text-xl text-[#0c4363] hover:text-[#1b8c94] mr-3"></i><a href="#"
+                        class="active:text-[#1b8c94]">Your posts</a>
+                </li>
+                <li
+                    class="ln help-ln my-1 py-2 px-2 hover:bg-slate-200 hover:border-l-2 hover:border-l-[#0c4363] cursor-pointer">
+                    <i class="fa fa-handshake-angle pt-1 text-xl text-[#0c4363] hover:text-[#1b8c94] mr-3"></i><a
+                        href="#" class="active:text-[#1b8c94]">Help</a>
+                </li>
+
+            </ul>
+        </div>
+        <!-- Posts /feeds  -->
+        <div class="post-content md:border-l-gray-200 md:border-l-2 md:w-[70%]">
+            <div class="postWrapper md:mx-4 mt-4 border-[1px] rounded-lg p-4 shadow-md bg-slate-200">
+                <div class="header px-2">
+                    <div class="dp flex gap-1">
+                        <img src="../Assets/images/user.jpg" alt="" class="mt-2 h-[40px] w-[40px] rounded-full">
+                        <div class="name-panel flex flex-col justify-center">
+                            <div class="username mx-3">Alex jenn<span class="follow"><a href=""
+                                        class="text-white bg-[#0f5a86] px-2 text-sm rounded-md transition-all duration-200 ease-in hover:text-white hover:bg-[#0c4363] mx-3">Follow</a></span>
+                            </div>
+                            <div class="desc mx-3 text-slate-600 text-sm">Enjoying holidays!!!</div>
                         </div>
-                        <div class="desc mx-3 text-slate-600 text-sm">Enjoying holidays!!!</div>
+                    </div>
+                </div>
+                <div class="main p-0 pt-2 lg:p-4">
+                    <div class="text-content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis
+                        dolorum
+                        obcaecati aliquid quaerat aut delectus accusantium nemo rerum expedita sunt consequatur, impedit
+                        aspernatur consectetur porro voluptatibus nihil dolorem elorem lorem Lorem ipsum dolor sit amet,
+                        consectetur adipisicing elit. Blanditiis totam saepe itaque autem quidem? Pariatur libero
+                        accusantium optio, cum sint et provident eius modi reprehenderit alias! Enim sed fuga assumenda!
+                    </div>
+                    <!-- <div class="my-4 mx-auto w-[40%] h-[40%]"><img src="../Assets/images/HomeImage.jpg" alt=""></div> -->
+                </div>
+                <div class="statusbox flex justify-between mt-4 lg:mt-2 lg:px-4">
+                    <div class="flex gap-4">
+                        <i class="fa fa-thumbs-up pt-1 text-[28px] text-[#0c4363] hover:text-[#1b8c94] "></i>
+                        <i class="fa fa-pen-to-square pt-1 text-[28px] text-[#0c4363] hover:text-[#1b8c94] "></i>
+                        <i class="fa fa-share pt-1 text-[28px] text-[#0c4363] hover:text-[#1b8c94] "></i>
+                    </div>
+                    <div>
+                        <span class="mr-4"><span class="text-xl font-semibold mr-1">2</span>Answers</span>
+                        <span class="mr-8"><span class="text-xl font-semibold mr-1">6</span>Likes</span>
+                        <i class="fa fa-bookmark pt-1 text-[28px] text-[#0c4363] hover:text-[#1b8c94] "></i>
                     </div>
                 </div>
             </div>
-            <div class="main p-0 lg:p-4">
-                <div class="text-content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis dolorum
-                    obcaecati aliquid quaerat aut delectus accusantium nemo rerum expedita sunt consequatur, impedit
-                    aspernatur consectetur porro voluptatibus nihil dolorem elorem lorem Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis totam saepe itaque autem quidem? Pariatur libero accusantium optio, cum sint et provident eius modi reprehenderit alias! Enim sed fuga assumenda!
-                </div>
-                <!-- <div class="my-4 mx-auto w-[40%] h-[40%]"><img src="../Assets/images/HomeImage.jpg" alt=""></div> -->
-            </div>
-            <div class="statusbox flex justify-between mt-4 lg:mt-2 lg:px-4">
-                <div class="flex gap-2">
-                    <img src="../Assets/images/approve.svg" class="h-[35px] w-[35px]">
-                    <img src="../Assets/images/comment.svg" class="h-[35px] w-[35px]">
-                    <img src="../Assets/images/share.svg" class="h-[35px] w-[35px]">
-                </div>
-                <div><img src="../Assets/images/save.svg" alt="" class="h-[35px] w-[35px]"></div>
-            </div>
-        </div>
-
-        <div class="postWrapper mx-2 mb-4 border-[1px] rounded-lg p-4 shadow-md bg-slate-200">
-            <div class="header px-2">
-                <div class="dp flex gap-1">
-                    <img src="../Assets/images/user.jpg" alt="" class="h-[40px] w-[40px] rounded-full">
-                    <div class="name-panel flex flex-col">
-                        <div class="username mx-3">Alex jenn<span class="follow"><a href=""
-                                    class="text-white bg-[#0f5a86] px-2 text-sm rounded-md transition-all duration-200 ease-in hover:text-white hover:bg-[#0c4363] mx-3">Follow</a></span>
+            <div class="postWrapper md:mx-4 mt-4 border-[1px] rounded-lg p-4 shadow-md bg-slate-200">
+                <div class="header px-2">
+                    <div class="dp flex gap-1">
+                        <img src="../Assets/images/user.jpg" alt="" class="mt-2 h-[40px] w-[40px] rounded-full">
+                        <div class="name-panel flex flex-col justify-center">
+                            <div class="username mx-3">Alex jenn<span class="follow"><a href=""
+                                        class="text-white bg-[#0f5a86] px-2 text-sm rounded-md transition-all duration-200 ease-in hover:text-white hover:bg-[#0c4363] mx-3">Follow</a></span>
+                            </div>
+                            <div class="desc mx-3 text-slate-600 text-sm">Enjoying holidays!!!</div>
                         </div>
-                        <div class="desc mx-3 text-slate-600 text-sm">Describing same vibe, Dec 31</div>
+                    </div>
+                </div>
+                <div class="main p-0 pt-2 lg:p-4">
+                    <div class="text-content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis
+                        doloru?
+                    </div>
+                </div>
+                <div class="statusbox flex justify-between mt-4 lg:mt-2 lg:px-4">
+                    <div class="flex gap-4">
+                        <a href=""><i
+                                class="fa fa-thumbs-up pt-1 text-[28px] text-[#0c4363] hover:text-[#1b8c94] "></i></a>
+                        <button class="collapse-comment"><i
+                                class="fa fa-pen-to-square pt-1 text-[28px] text-[#0c4363] hover:text-[#1b8c94] "></i></button>
+                        <a href=""><i class="fa fa-share pt-1 text-[28px] text-[#0c4363] hover:text-[#1b8c94] "></i></a>
+                    </div>
+                    <div>
+                        <span class="mr-4"><span class="text-xl font-semibold mr-1">1</span>Answers</span>
+                        <span class="mr-8"><span class="text-xl font-semibold mr-1">2</span>Likes</span>
+                        <a href=""><i
+                                class="fa fa-bookmark pt-1 text-[28px] text-[#0c4363] hover:text-[#1b8c94] "></i></a>
                     </div>
                 </div>
             </div>
-            <div class="main p-0 lg:p-4">
-                <div class="text-content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis dolorum
-                    obcaecati aliquid quaerat aut delectus accusantium nemo rerum expedita sunt consequatur, impedit
-                    aspernatur consectetur porro voluptatibus nihil dolorem elorem lorem
-                </div>
-                <!-- <div class="my-4 mx-auto w-[40%] h-[40%]"><img src="../Assets/images/HomeImage.jpg" alt=""></div> -->
-            </div>
-            <div class="statusbox flex justify-between mt-4 lg:mt-2 lg:px-4">
-                <div class="flex gap-2">
-                    <img src="../Assets/images/approve.svg" class="h-[35px] w-[35px]">
-                    <img src="../Assets/images/comment.svg" class="h-[35px] w-[35px]">
-                    <img src="../Assets/images/share.svg" class="h-[35px] w-[35px]">
-                </div>
-                <div><img src="../Assets/images/save.svg" alt="" class="h-[35px] w-[35px]"></div>
-            </div>
         </div>
+    </div>
 
-        <div class="postWrapper mx-2 mb-4 border-[1px] rounded-lg p-4 shadow-md bg-slate-200">
-            <div class="header px-2">
-                <div class="dp flex gap-1">
-                    <img src="../Assets/images/user.jpg" alt="" class="h-[40px] w-[40px] rounded-full">
-                    <div class="name-panel flex flex-col">
-                        <div class="username mx-3">Alex jenn<span class="follow"><a href=""
-                                    class="text-white bg-[#0f5a86] px-2 text-sm rounded-md transition-all duration-200 ease-in hover:text-white hover:bg-[#0c4363] mx-3">Follow</a></span>
-                        </div>
-                        <div class="desc mx-3 text-slate-600 text-sm">Coding, workload express</div>
+    <div id="createPost"
+        class="z-[2] fixed top-0 left-0 bottom-0 right-0 bg-[rgba(0,0,0,.8)] hidden target:block select-none overflow-auto">
+        <div
+            class=" w-full sm:w-[80%] md:[60%] lg:w-[50%] wrapper my-[10px] sm:my-[30px] lg:my-[50px] mx-auto bg-[#d4efea] relative rounded-lg">
+            <a href="" class="close absolute top-2 right-6 font-bold text-2xl">&times;</a>
+            <div class="content max-h-[50%] overflow-auto">
+                <h3 class="text-2xl font-semibold text-center mt-11 mb-6">Ask a question</h3>
+                <form action="" method="post" class="w-[80%] my-1 mx-auto">
+                    <div class="text-lg">Title</div>
+                    <div><input type="text" name="question" id="ques" class="title form-inputBox"
+                            placeholder="e.g. how can I create anonymous functions?"></div>
+                    <div class="text-lg">Body</div>
+                    <div><textarea name="qBody" id="ques-body" rows="10" class="form-inputBox"
+                            placeholder="Include all the information someone would need to answer your question"></textarea>
                     </div>
-                </div>
-            </div>
-            <div class="main p-0 lg:p-4">
-                <div class="text-content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis dolorum
-                    obcaecati aliquid quaerat aut delectus accusantium nemo rerum expedita sunt consequatur, impedit
-                    aspernatur consectetur porro voluptatibus nihil dolorem elorem lorem
-                </div>
-                <!-- <div class="my-4 mx-auto w-[40%] h-[40%]"><img src="../Assets/images/HomeImage.jpg" alt=""></div> -->
-            </div>
-            <div class="statusbox flex justify-between mt-4 lg:mt-2 lg:px-4">
-                <div class="flex gap-2">
-                    <img src="../Assets/images/approve.svg" class="h-[35px] w-[35px]">
-                    <img src="../Assets/images/comment.svg" class="h-[35px] w-[35px]">
-                    <img src="../Assets/images/share.svg" class="h-[35px] w-[35px]">
-                </div>
-                <div><img src="../Assets/images/save.svg" alt="" class="h-[35px] w-[35px]"></div>
+                    <label for="semester">Visiblity </label>
+                    <div class="w-1/3">
+                        <select id="semester" name="semester" class="Semester form-inputBox">
+                            <option value="public">Public</option>
+                            <option value="anonymous">Anonymous</option>
+                        </select>
+                    </div>
+                    <div class="mb-6">
+                        <button type="submit" value="submit" name="submit" id="signup" class="cool-btn text-[18px]">Post
+                            your question</button>
+                    </div>
+                </form>
             </div>
         </div>
-
+    </div>
     </div>
 </body>
+<script>
+    let search = document.querySelector('.collapse-search');
+    let content = document.querySelector('.collapse-content');
+    search.onclick = () => {
+        content.classList.toggle('hidden');
+        content.classList.toggle('flex');
+    }    
+</script>
 
 </html>
