@@ -10,7 +10,7 @@ login.addEventListener('click', (e) => {
     const logP = expressionValidator(loginPass,"password");
     if(isEmptyLogin == 0 && logE == true && logP == true){
         // alert('form has been submitted');
-        // location.replace('./Pages/Desk.html');
+        location.replace('../Pages/Desk.html');
     }
     
 })
