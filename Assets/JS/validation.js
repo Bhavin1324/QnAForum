@@ -99,23 +99,67 @@ function requireFieldValidator(...args) {
     return ee;
 }
 
+async function userSwill(elem, passelem){
+    try{
+        const response = await fetch(`/api/v1/users/${elem.value}`);
+        if(response.status == 200){
+            const {singleUser} = await response.json();
+            console.log(singleUser);
+            if (singleUser.password != passelem.value) {
+                let span = document.createElement('span');
+                span.textContent = `Password doesn't match`;
+                span.style.color = 'red';
+                span.style.margin = '0px 6px';
+                span.style.fontSize = '16px';
+                passelem.style.borderColor = 'red';
+                passelem.classList.add('focus:ring-red-500');
+                if (passelem.parentElement.previousElementSibling.childElementCount == 0) {
+                    passelem.parentElement.previousElementSibling.appendChild(span);
+                }
+            }
+            return true;
+        }
+        else{
+            const {error} = await response.json();
+            console.log(error)
+            let span = document.createElement('span');
+            span.textContent = `Unregistered Email`;
+            span.style.color = 'red';
+            span.style.margin = '0px 6px';
+            span.style.fontSize = '16px';
+            elem.style.borderColor = 'red';
+            elem.classList.add('focus:ring-red-500');
+            if (elem.parentElement.previousElementSibling.childElementCount == 0) {
+                elem.parentElement.previousElementSibling.appendChild(span);
+            }
+            return false
+        }
+    }
+    catch(error){
+        alert('Internal server error! Try Again...');
+        console.log(error);
+        return false;
+    }
+}
+
 export default requireFieldValidator;
-export { 
-    expressionValidator, 
-    firstName, 
-    lastName, 
-    regEmail, 
-    regPass, 
-    loginEmail, 
-    loginPass, 
-    dateOfBirth, 
-    sem, 
-    gradYear, 
-    forgetEmail, 
-    forgetPass, 
-    reForgetPass, 
-    login, 
-    signUp, 
-    changePass 
+export {
+    expressionValidator,
+    userSwill,
+    firstName,
+    lastName,
+    regEmail,
+    regPass,
+    loginEmail,
+    loginPass,
+    dateOfBirth,
+    sem,
+    gradYear,
+    forgetEmail,
+    forgetPass,
+    reForgetPass,
+    login,
+    signUp,
+    changePass
 };
 //*module.exports = requireFieldValidator;
