@@ -1,4 +1,4 @@
-const {users, university} = require('../models/forumModel');
+const {users, university, question, answer} = require('../models/forumModel');
 
 //User access
 const getAllUsers = async (req, res, next)=>{
@@ -80,35 +80,41 @@ const getUniversity = async (req, res, next)=>{
         res.status(500).json({msg: err});
     }
 }
-/* const getUser = async (req, res, next)=>{
+
+
+//questions access
+
+const getAllQuestions = async (req, res)=>{
     try{
-        const {id:userID} = req.params;
-        const singleUser = await users.findOne({_id:userID});
-        res.status(200).json({singleUser});
-        if(!singleUser){
-            return res.status(404).json({error:`No user found with ID ${userID}`})
+        const questions = await question.find({});
+        if(!questions)
+        {
+            return res.status(404).json({error:`No questions found`});
         }
+        res.status(200).json({questions})
+    }
+    catch(err)
+    {
+        res.status(500).json({msg: err})
+    }
+}
+
+const createQuestion = async (req, res)=>{
+    try{
+        const ques = await question.create(req.body);
+        res.status(201).json({ques});
     }
     catch(err){
         res.status(500).json({msg: err});
     }
 }
 
-const createUser = async (req, res, next)=>{
+const deleteQuestion = async (req, res)=>{
     try{
-        const user = await users.create(req.body);
-        res.status(201).json({user});
-    }
-    catch(err){
-        res.status(500).json({msg: err});
-    }
-}
-const deleteUser = async (req, res, next)=>{
-    try{
-        const {id:userID} = req.params;
-        const userDel = await users.findOneAndDelete({_id:userID});
-        if(!userDel){
-            return res.status(404).json({error:`No user found with ID ${userID}`})
+        const {id:questionID} = req.params;
+        const quesDel = await question.findOneAndDelete({_id:questionID});
+        if(!quesDel){
+            return res.status(404).json({error:`No question found with ID ${questionID}`})
         }
         res.status(200).json({success: true, msg: `Response deleted successfully`});
     }
@@ -116,29 +122,98 @@ const deleteUser = async (req, res, next)=>{
         res.status(500).json({msg: err.message});
     }
 }
-const updateUser = async (req, res, next)=>{
+
+const updateQuestion = async (req, res)=>{
     try{
-        const {id:userID} = req.params;
+        const {id:questionID} = req.params;
         const newData = req.body;
-        const userUpd = await users.findByIdAndUpdate({_id:userID},newData,{
+        const questionUpdate = await question.findByIdAndUpdate({_id:questionID},newData,{
             new: true,
             runValidators: true
         });
-        if(!userUpd){
-            return res.status(404).json({error:`No user found with ID ${userID}`})
+        if(!questionUpdate){
+            return res.status(404).json({error:`No question found with ID ${questionID}`})
         }
-        res.status(200).json({userUpd});
+        res.status(200).json({questionUpdate});
     }
     catch(err){
         res.status(500).json({msg: err.message});
     }
 }
- */
+
+
+//answer controller
+
+const getAllAnswers = async (req, res)=>{
+    try{
+        const answers = await answer.find({});
+        if(!answers)
+        {
+            return res.status(404).json({error:`No answer found`});
+        }
+        res.status(200).json({answers})
+    }
+    catch(err)
+    {
+        res.status(500).json({msg: err})
+    }
+}
+
+const createAnswer = async (req, res)=>{
+    try{
+        const ans = await answer.create(req.body);
+        res.status(201).json({ans});
+    }
+    catch(err){
+        res.status(500).json({msg: err});
+    }
+}
+
+const deleteAnswer = async (req, res)=>{
+    try{
+        const {id:answerID} = req.params;
+        const ansDel = await answer.findOneAndDelete({_id:answerID});
+        if(!ansDel){
+            return res.status(404).json({error:`No answer found with ID ${answerID}`})
+        }
+        res.status(200).json({success: true, msg: `Response deleted successfully`});
+    }
+    catch(err){
+        res.status(500).json({msg: err.message});
+    }
+}
+
+const updateAnswer = async (req, res)=>{
+    try{
+        const {id:answerID} = req.params;
+        const newData = req.body;
+        const answerUpdate = await answer.findByIdAndUpdate({_id:answerID},newData,{
+            new: true,
+            runValidators: true
+        });
+        if(!answerUpdate){
+            return res.status(404).json({error:`No answer found with ID ${answerID}`})
+        }
+        res.status(200).json({answerUpdate});
+    }
+    catch(err){
+        res.status(500).json({msg: err.message});
+    }
+}
+
 module.exports = {
     getAllUsers,
     getUser,
     createUser,
     deleteUser,
     updateUser,
-    getUniversity
+    getUniversity,
+    getAllQuestions,
+    createQuestion,
+    deleteQuestion,
+    updateQuestion,
+    getAllAnswers,
+    createAnswer,
+    deleteAnswer,
+    updateAnswer
 };

@@ -42,6 +42,79 @@ const uniSchema = new mongoose.Schema({
     name: String
 });
 
+const questionSchema = new mongoose.Schema({
+    title:{
+        type:String,
+        required:true,
+        trim: true
+    },
+    description:{
+        type:String,
+        trim: true
+    },
+    userID:{
+        type:mongoose.Schema.Types.ObjectId,
+        required: true,
+    },
+    /*classID:{
+        type:String,
+        required:true,
+        trim: true
+    },*/
+    timestamp:{
+        type:Date,
+        default: Date.now(),
+        required:true,
+        trim: true
+    },
+    answered:{
+        type:Boolean,
+        required:true,
+        trim: true
+    },
+    anonymous:{
+        type:Boolean,
+        required:true,
+        trim: true
+    }
+
+})
+
+const answerSchema = new mongoose.Schema({
+    description:{
+        type:String,
+        required:true,
+        trim: true
+    },
+    questionID:{
+        type:mongoose.Schema.Types.ObjectId,
+        required: true,
+    },
+    userID:{
+        type:mongoose.Schema.Types.ObjectId,
+        required: true,
+    },
+    timestamp:{
+        type:Date,
+        default: Date.now(),
+        required:true,
+        trim: true
+    },
+    goodAnswer:{
+        type:Boolean,
+        required:true,
+        trim: true
+    },
+    anonymous:{
+        type:Boolean,
+        required:true,
+        trim: true
+    }
+
+})
+
 const users = mongoose.model('users', userSchema);
 const university = mongoose.model('universities', uniSchema)
-module.exports = { users, university };
+const question = mongoose.model('questions', questionSchema)
+const answer = mongoose.model('answers', answerSchema)
+module.exports = { users, university, question, answer};
