@@ -42,6 +42,77 @@ const uniSchema = new mongoose.Schema({
     name: String
 });
 
+const questionSchema = new mongoose.Schema({
+    title:{
+        type:String,
+        required:[true,'Title of the question is mandatory'],
+        trim: true
+    },
+    description:{
+        type:String,
+        trim: true
+    },
+    userID:{
+        type:mongoose.Schema.Types.ObjectId,
+        required: true,
+    },
+    /*classID:{
+        type:String,
+        required:true,
+        trim: true
+    },*/
+    timestamp:{
+        type:Date,
+        default: Date.now(),
+        trim: true
+    },
+    answered:{
+        type:Boolean,
+        required:true,
+        trim: true
+    },
+    anonymous:{
+        type:Boolean,
+        required:true,
+        trim: true
+    }
+
+})
+
+const answerSchema = new mongoose.Schema({
+    description:{
+        type:String,
+        required:[true,'Describe the answer'],
+        trim: true
+    },
+    questionID:{
+        type:mongoose.Schema.Types.ObjectId,
+        required: true,
+    },
+    userID:{
+        type:mongoose.Schema.Types.ObjectId,
+        required: true,
+    },
+    timestamp:{
+        type:Date,
+        default: Date.now(),
+        trim: true
+    },
+    goodAnswer:{
+        type:Boolean,
+        required:true,
+        trim: true
+    },
+    anonymous:{
+        type:Boolean,
+        required:true,
+        trim: true
+    }
+
+})
+
 const users = mongoose.model('users', userSchema);
-const university = mongoose.model('universities', uniSchema)
-module.exports = { users, university };
+const university = mongoose.model('universities', uniSchema);
+const question = mongoose.model('questions', questionSchema);
+const answer = mongoose.model('answers', answerSchema);
+module.exports = { users, university, question, answer};

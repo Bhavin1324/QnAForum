@@ -3,6 +3,8 @@ const app = express();
 /* Importing router */
 const commonRouter = require('./routes/userRouter');
 const uniRouter = require('./routes/uniRouter');
+const questionRouter = require('./routes/questionRouter');
+const answerRouter = require('./routes/answerRouter');
 
 /* Importing connection module */
 const connectDB = require('./db/connection');
@@ -23,7 +25,8 @@ app.use(express.urlencoded({extended: false}));
 
 app.use('/api/v1/users',commonRouter);
 app.use('/api/v1/universities',uniRouter);
-
+app.use('/api/v1/questions', questionRouter);
+app.use('/api/v1/answers', answerRouter);
 
 const start = async ()=>{
     try{

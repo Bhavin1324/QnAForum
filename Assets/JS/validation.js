@@ -104,7 +104,7 @@ async function userSwill(elem, passelem){
         const response = await fetch(`/api/v1/users/${elem.value}`);
         if(response.status == 200){
             const {singleUser} = await response.json();
-            console.log(singleUser);
+            // console.log(singleUser);
             if (singleUser.password != passelem.value) {
                 let span = document.createElement('span');
                 span.textContent = `Password doesn't match`;
@@ -121,8 +121,6 @@ async function userSwill(elem, passelem){
             return true;
         }
         else{
-            const {error} = await response.json();
-            console.log(error)
             let span = document.createElement('span');
             span.textContent = `Unregistered Email`;
             span.style.color = 'red';
@@ -133,7 +131,7 @@ async function userSwill(elem, passelem){
             if (elem.parentElement.previousElementSibling.childElementCount == 0) {
                 elem.parentElement.previousElementSibling.appendChild(span);
             }
-            return false
+            return false;
         }
     }
     catch(error){
