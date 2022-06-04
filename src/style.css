@@ -19,10 +19,10 @@
 
 /* button */
 .cool-btn{
-    @apply font-[500] z-[1] text-[#0e4667] text-xl py-[6px] px-[10px] my-4 mx-8 bg-transparent border-0 outline-0 transition-all duration-300 ease-in-out relative rounded-[10px] cursor-pointer before:content-[''] before:h-[50px] before:w-[50px] before:bg-[#77bcc2] before:absolute before:top-0 before:left-0  before:-translate-x-[30px] before:-translate-y-[10%] before:-z-[1] before:rounded-[25px] before:transition-all before:duration-300 before:ease-rubber hover:before:w-[120%] hover:before:-translate-x-[10px] hover:before:-translate-y-[10%] focus:before:w-[115%] focus:before:-translate-x-[10px] focus:before:-translate-y-[10%];
+    @apply font-[500] z-[1] text-[#0e4667] text-xl py-[6px] px-[10px] my-4 mx-8 bg-transparent border-0 outline-0 transition-all duration-300 ease-in-out relative rounded-[10px] cursor-pointer before:content-[''] before:h-[50px] before:w-[50px] before:bg-[#77bcc2] before:absolute before:top-0 before:left-0  before:-translate-x-[30px] before:-translate-y-[10%] before:-z-[1] before:rounded-[25px] before:transition-all before:duration-[400ms] before:ease-rubber hover:before:w-[120%] hover:before:-translate-x-[10px] hover:before:-translate-y-[10%] focus:before:w-[115%] focus:before:-translate-x-[10px] focus:before:-translate-y-[10%];
 }
 .btn{
-    @apply text-white bg-[#1b8c94] py-1 px-4 rounded-md transition-all duration-300 ease-out hover:bg-[#0f595d] focus:bg-[#0f595d];
+    @apply text-white bg-[#1b8c94] py-1 px-4 rounded-md transition-all duration-200 ease-out hover:bg-[#0f595d] focus:bg-[#0f595d] hover:scale-105 active:scale-95;
 }
 
 /* Radio button put this class in label */

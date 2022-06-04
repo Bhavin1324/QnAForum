@@ -116,6 +116,7 @@ async function userSwill(elem, passelem){
                 if (passelem.parentElement.previousElementSibling.childElementCount == 0) {
                     passelem.parentElement.previousElementSibling.appendChild(span);
                 }
+                return false;
             }
             return true;
         }
@@ -136,8 +137,6 @@ async function userSwill(elem, passelem){
         }
     }
     catch(error){
-        alert('Internal server error! Try Again...');
-        console.log(error);
         return false;
     }
 }
