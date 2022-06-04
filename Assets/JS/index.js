@@ -3,14 +3,13 @@ import { expressionValidator, userSwill, loginEmail, loginPass, firstName, lastN
 import hamResponse from './utility.js';
 hamResponse();
 // debugger;
-login.addEventListener('click', (e) => {
+login.addEventListener('click',async (e) => {
     e.preventDefault();
     const isEmptyLogin = requireFieldValidator(loginEmail, loginPass);
     const logE = expressionValidator(loginEmail, "email");
     const logP = expressionValidator(loginPass, "password");
-    const loginStatus = userSwill(loginEmail, loginPass);
-    console.log(loginStatus);
-    if (isEmptyLogin == 0 && logE == true && logP == true && loginStatus != false) {
+    const loginStatus = await userSwill(loginEmail,loginPass);
+    if (isEmptyLogin == 0 && logE == true && logP == true && loginStatus == true) {
         location.replace('../Pages/Desk.html');
     }
 })

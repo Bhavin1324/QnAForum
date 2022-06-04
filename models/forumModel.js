@@ -45,7 +45,7 @@ const uniSchema = new mongoose.Schema({
 const questionSchema = new mongoose.Schema({
     title:{
         type:String,
-        required:true,
+        required:[true,'Title of the question is mandatory'],
         trim: true
     },
     description:{
@@ -64,7 +64,6 @@ const questionSchema = new mongoose.Schema({
     timestamp:{
         type:Date,
         default: Date.now(),
-        required:true,
         trim: true
     },
     answered:{
@@ -83,7 +82,7 @@ const questionSchema = new mongoose.Schema({
 const answerSchema = new mongoose.Schema({
     description:{
         type:String,
-        required:true,
+        required:[true,'Describe the answer'],
         trim: true
     },
     questionID:{
@@ -97,7 +96,6 @@ const answerSchema = new mongoose.Schema({
     timestamp:{
         type:Date,
         default: Date.now(),
-        required:true,
         trim: true
     },
     goodAnswer:{
@@ -114,7 +112,7 @@ const answerSchema = new mongoose.Schema({
 })
 
 const users = mongoose.model('users', userSchema);
-const university = mongoose.model('universities', uniSchema)
-const question = mongoose.model('questions', questionSchema)
-const answer = mongoose.model('answers', answerSchema)
+const university = mongoose.model('universities', uniSchema);
+const question = mongoose.model('questions', questionSchema);
+const answer = mongoose.model('answers', answerSchema);
 module.exports = { users, university, question, answer};

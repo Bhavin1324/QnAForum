@@ -87,13 +87,15 @@
         </div>
         <!-- Posts /feeds  -->
         <div class="post-content md:border-l-gray-200 md:border-l-2 md:w-[70%]">
-            <div class="postWrapper md:mx-4 mt-1 border-[1px] rounded-lg p-4 shadow-md bg-slate-200">
+            <div class="postWrapper md:mx-4 mt-1 border-[1px] rounded-lg px-4 py-2 shadow-md bg-slate-200">
                 <div class="header px-2">
                     <div class="dp flex gap-1">
                         <img src="../images/user.jpg" alt="" class="mt-2 h-[40px] w-[40px] rounded-full">
                         <div class="name-panel flex flex-col justify-center">
                             <div class="username mx-3">Alex jenn</div>
                         </div>
+                        <div><i class="fa-solid fa-font-awesome pt-3 text-[28px] text-[#0c4363] hover:text-[#1b8c94]"></i></div>
+                        <div class="hidden"><i class="fa fa-circle-check pt-3 text-[26px] text-[#0c4363] hover:text-[#1b8c94]"></i></div>
                     </div>
                 </div>
                 <div class="main p-0 pt-2 lg:p-4">
@@ -105,7 +107,7 @@
                     </div>
                     <!-- <div class="my-4 mx-auto w-[40%] h-[40%]"><img src="../Assets/images/HomeImage.jpg" alt=""></div> -->
                 </div>
-                <div class="statusbox flex justify-between mt-4 lg:mt-2 lg:px-4">
+               <!--  <div class="statusbox flex justify-between mt-4 lg:mt-2 lg:px-4">
                     <div class="flex gap-4">
                         <i class="fa fa-thumbs-up pt-1 text-[28px] text-[#0c4363] hover:text-[#1b8c94] "></i>
                         <button class="collapse-comment"><i
@@ -117,6 +119,15 @@
                         <span class="mr-8"><span class="text-xl font-semibold mr-1">6</span>Likes</span>
                         <i class="fa fa-bookmark pt-1 text-[28px] text-[#0c4363] hover:text-[#1b8c94] "></i>
                     </div>
+                </div> -->
+                <div class="comment-tool container mt-3 flex gap-2 items-center">
+                    <textarea name="commentarea" id="comment-body" class="form-inputBox my-0 h-[40px] resize-none focus:h-[200px] transition-all duration-200"
+                        placeholder="Write your thoughts... "></textarea>
+                    <div class="w-fit"><button class="btn h-[35px]">Answer</button></div>
+                </div>
+                <div class="statusbox flex justify-center lg:px-4">
+                    <button class="collapse-comment px-[20%]"><i
+                        class="fa fa-angle-down pt-1 text-[28px] text-[#0c4363] hover:text-[#1b8c94] "></i></button>
                 </div>
             </div>
             <div class="comment-box relative bottom-2">
@@ -155,11 +166,6 @@
                                     pariatur omnis repellat asperiores. Quae vero placeat qui quos.
                                 </div>
                             </div>
-                        </div>
-                        <div class="comment-tool">
-                            <textarea name="commentarea" id="comment-body" rows="5" class="form-inputBox resize-none"
-                                placeholder="Write your thoughts..."></textarea>
-                            <div class="w-fit ml-auto"><button class="cool-btn">Comment</button></div>
                         </div>
                     </div>
                 </div>
@@ -210,14 +216,14 @@
     let commentCollapse = document.querySelectorAll('.collapse-comment');
     commentCollapse.forEach(comCol => {
         comCol.addEventListener('click', function () {
-            let content = comCol.parentElement.parentElement.parentElement.nextElementSibling.firstElementChild;
+            let content = comCol.parentElement.parentElement.nextElementSibling.firstElementChild;
             if (content.style.maxHeight) {
                 content.style.maxHeight = null;
             } else {
                 content.style.maxHeight = content.scrollHeight + "px";
             }
         })
-    })  
+    }) 
 </script>
 
 </html>
