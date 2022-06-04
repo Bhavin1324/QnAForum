@@ -9,7 +9,6 @@ login.addEventListener('click', async (e) => {
     const logE = expressionValidator(loginEmail, "email");
     const logP = expressionValidator(loginPass, "password");
     const loginStatus = await userSwill(loginEmail, loginPass);
-    console.log(loginStatus);
     if (isEmptyLogin == 0 && logE == true && logP == true && loginStatus == true) {
         location.replace('../Pages/Desk.html');
     }

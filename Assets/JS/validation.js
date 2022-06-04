@@ -118,6 +118,8 @@ async function userSwill(elem, passelem){
                 }
                 return false;
             }
+            sessionStorage.setItem('email',singleUser.email);
+            sessionStorage.setItem('name',singleUser.name);
             return true;
         }
         else{
