@@ -1,5 +1,6 @@
+const Cryptr = require('cryptr');
 const {users, university, question, answer} = require('../models/forumModel');
-
+const cryptr = new Cryptr('RegistartionPassword');
 //User access
 const getAllUsers = async (req, res, next)=>{
     try{
@@ -17,6 +18,8 @@ const getUser = async (req, res, next)=>{
         if(!singleUser){
             return res.status(404).json({error:`No user found with email ${email}`})
         }
+        const passDec = cryptr.decrypt(singleUser.password);
+        singleUser.password = passDec;
         res.status(200).json({singleUser});
     }
     catch(err){
@@ -26,6 +29,8 @@ const getUser = async (req, res, next)=>{
 
 const createUser = async (req, res, next)=>{
     try{
+        const passEnc = cryptr.encrypt(req.body.password);
+        req.body.password = passEnc;
         const user = await users.create(req.body);
         res.status(201).json({user});
     }

@@ -16,7 +16,7 @@ const userSchema = new mongoose.Schema({
         trim: true
     },
     universityID: {
-        type: Number,
+        type: mongoose.Schema.Types.ObjectId,
         required: [true, 'University is required'],
         trim: true
     },
@@ -30,9 +30,9 @@ const userSchema = new mongoose.Schema({
         required: [true, 'Semester is required'],
         trim: true
     },
-    graduationDate: {
-        type: Date,
-        default: Date.now,
+    graduationYear: {
+        type: String,
+        required: [true, 'Require graduation year'],
         trim: true
     }
 })
@@ -68,12 +68,12 @@ const questionSchema = new mongoose.Schema({
     },
     answered:{
         type:Boolean,
-        required:true,
+        default: false,
         trim: true
     },
     anonymous:{
         type:Boolean,
-        required:true,
+        default: false,
         trim: true
     }
 
@@ -100,7 +100,7 @@ const answerSchema = new mongoose.Schema({
     },
     goodAnswer:{
         type:Boolean,
-        required:true,
+        default: false,
         trim: true
     },
     anonymous:{

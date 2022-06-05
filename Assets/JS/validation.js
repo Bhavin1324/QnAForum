@@ -1,3 +1,4 @@
+
 let loginEmail = document.getElementById('logemail');
 let loginPass = document.getElementById('logpass');
 let firstName = document.getElementById('fname');
@@ -15,7 +16,8 @@ let signUp = document.getElementById('signup');
 let changePass = document.getElementById('changePass');
 
 function generalizedRegex(elem, regEx, msg) {
-    if (!regEx.test(elem.value)) {
+
+    if (!regEx.test(elem.value.trim())) {
         let span = document.createElement('span');
         span.textContent = `${msg}`;
         span.style.color = 'red';
@@ -99,11 +101,12 @@ function requireFieldValidator(...args) {
     return ee;
 }
 
-async function userSwill(elem, passelem){
-    try{
+
+async function userSwill(elem, passelem) {
+    try {
         const response = await fetch(`/api/v1/users/${elem.value}`);
-        if(response.status == 200){
-            const {singleUser} = await response.json();
+        if (response.status == 200) {
+            const { singleUser } = await response.json();
             // console.log(singleUser);
             if (singleUser.password != passelem.value) {
                 let span = document.createElement('span');
@@ -118,11 +121,11 @@ async function userSwill(elem, passelem){
                 }
                 return false;
             }
-            sessionStorage.setItem('email',singleUser.email);
-            sessionStorage.setItem('name',singleUser.name);
+            sessionStorage.setItem('email', singleUser.email);
+            sessionStorage.setItem('name', singleUser.name);
             return true;
         }
-        else{
+        else {
             let span = document.createElement('span');
             span.textContent = `Unregistered Email`;
             span.style.color = 'red';
@@ -136,15 +139,93 @@ async function userSwill(elem, passelem){
             return false;
         }
     }
-    catch(error){
+    catch (error) {
         return false;
     }
 }
 
+
+function calcAge(dateOfBirth) {
+    let curYear = new Date().getFullYear();
+    let birthYear = new Date(dateOfBirth.value).getFullYear();
+    return curYear - birthYear;
+}
+async function varifyUniversity(emailField) {
+    let emailFrag = emailField.value.split('@');
+    let emailPostfix = emailFrag[1];
+    try {
+        const response = await fetch(`/api/v1/universities/${emailPostfix}`);
+        if (response.status == 200) {
+            const { uni } = await response.json();
+            return uni;
+        }
+        else {
+            let span = document.createElement('span');
+            span.textContent = `Unregistered University`;
+            span.style.color = 'red';
+            span.style.margin = '0px 6px';
+            span.style.fontSize = '16px';
+            emailField.style.borderColor = 'red';
+            emailField.classList.add('focus:ring-red-500');
+            if (emailField.parentElement.previousElementSibling.childElementCount == 0) {
+                emailField.parentElement.previousElementSibling.appendChild(span);
+            }
+            return null;
+        }
+    }
+    catch (error) {
+        return null;
+    }
+    
+}
+async function enrollUser() {
+    try {
+        const uni = await varifyUniversity(regEmail);
+        const userExist = await fetch(`/api/v1/users/${regEmail.value}`);
+        if(userExist.status == 200){
+            alert('User is already enrolled!!!');    
+            return false;
+        }
+        if (uni != null) {
+            const age = calcAge(dateOfBirth);
+            const data = {
+                name: firstName.value.trim() + " " + lastName.value.trim(),
+                email: regEmail.value.trim(),
+                password: regPass.value,
+                universityID: uni._id,
+                age: age,
+                semester: sem.value,
+                graduationYear: gradYear.value
+            }
+            const response = await fetch(`/api/v1/users/`, {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json;charset=utf-8'
+                },
+                body: JSON.stringify(data)
+            }
+
+            );
+            if (response.status == 201) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        else {
+            return false;
+        }
+    }
+    catch (error) {
+        alert('Internal server error!');
+        return false;
+    }
+}
 export default requireFieldValidator;
 export {
     expressionValidator,
     userSwill,
+    enrollUser,
     firstName,
     lastName,
     regEmail,

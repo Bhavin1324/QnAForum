@@ -1,8 +1,7 @@
 import requireFieldValidator from './validation.js';
-import { expressionValidator, userSwill, loginEmail, loginPass, firstName, lastName, regEmail, regPass, dateOfBirth, sem, gradYear, forgetEmail, forgetPass, reForgetPass, login, signUp, changePass } from './validation.js';
+import { expressionValidator, userSwill, enrollUser, loginEmail, loginPass, firstName, lastName, regEmail, regPass, dateOfBirth, sem, gradYear, forgetEmail, forgetPass, reForgetPass, login, signUp, changePass } from './validation.js';
 import hamResponse from './utility.js';
 hamResponse();
-// debugger;
 login.addEventListener('click', async (e) => {
     e.preventDefault();
     const isEmptyLogin = requireFieldValidator(loginEmail, loginPass);
@@ -13,7 +12,7 @@ login.addEventListener('click', async (e) => {
         location.replace('../Pages/Desk.html');
     }
 })
-signUp.addEventListener('click', (e) => {
+signUp.addEventListener('click', async (e) => {
     e.preventDefault();
     const isEmptyReg = requireFieldValidator(firstName, lastName, regEmail, regPass, dateOfBirth, sem, gradYear);
     const regE = expressionValidator(regEmail, "email");
@@ -21,7 +20,11 @@ signUp.addEventListener('click', (e) => {
     const fn = expressionValidator(firstName, "name");
     const ln = expressionValidator(lastName, "name");
     if (isEmptyReg == 0 && regE == true && regP == true && fn == true && ln == true) {
-        // alert('form has been submitted');
+        const enrollStatus = await enrollUser();
+        if(enrollStatus == true){
+            alert('You are successfully registered');
+            location.replace('/');
+        }
     }
 
 })
