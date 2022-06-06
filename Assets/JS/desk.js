@@ -1,3 +1,4 @@
+import requireFieldValidator from './validation.js';
 import { leftNavActive } from "./utility.js";
 leftNavActive();
 //  DOM elements 
@@ -73,7 +74,8 @@ async function getQuesitons(callback) {
                 <div class="dp flex gap-1 items-center">
                     <img src="../images/user.jpg" alt="" class="mt-2 h-[40px] w-[40px] rounded-full">
                     <div class="name-panel flex flex-col justify-center">
-                        <div class="username mx-3">${u}</div>
+                        <div class="username mx-3 ${(ques.anonymous == true) ? 'block' : 'hidden'}">Anonymous</div>
+                        <div class="username mx-3 ${(ques.anonymous == false) ? 'block' : 'hidden'}">${u}</div>
                     </div>
                     <div class="certified-q">
                         <i class="fa fa-circle-check text-[20px] text-[#0c4363] hover:text-[#1b8c94] pt-1"></i>
@@ -135,7 +137,7 @@ async function getQuesitons(callback) {
                 </div>
             </div>
         </div>`
-        callback();
+            callback();
         })
     }
     catch (error) {
@@ -149,26 +151,35 @@ runRefresher();
 // --- posting questions --- //
 async function postQuestion() {
     try {
-        const user = await getCurrentUser();
-        const data = {
-            title: questionTitle.value,
-            description: questionBody.value,
-            userID: user._id,
-            anonymous: postVisiblity.value
+        const fieldEmpty = requireFieldValidator(questionTitle);
+        if (fieldEmpty == 0) {
+            const user = await getCurrentUser();
+            const data = {
+                title: questionTitle.value,
+                description: questionBody.value,
+                userID: user._id,
+                anonymous: postVisiblity.value
+            }
+            const response = await fetch('/api/v1/questions', {
+                method: 'POST',
+                headers: { 'content-type': 'application/json;charset=utf-8' },
+                body: JSON.stringify(data)
+            });
+            console.log(data);
+            location.reload();
+            history.go(-1);
+            questionTitle.value = "";
+            questionBody.value = "";
+            postVisiblity.value = "false";
+            runRefresher();
         }
-        const response = await fetch('/api/v1/questions', {
-            method: 'POST',
-            headers: { 'content-type': 'application/json;charset=utf-8' },
-            body: JSON.stringify(data)
-        });
-        runRefresher();
     }
     catch (error) {
         alert('Unable to post questions. Something went wrong!');
     }
+
 }
 postQuestionButton.addEventListener('click', (e) => {
     e.preventDefault();
     postQuestion();
-    history.go(-1);
 });

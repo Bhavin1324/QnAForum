@@ -63,7 +63,7 @@ const questionSchema = new mongoose.Schema({
     },*/
     timestamp:{
         type:Date,
-        default: Date.now(),
+        default: Date.now,
         trim: true
     },
     answered:{
@@ -95,7 +95,7 @@ const answerSchema = new mongoose.Schema({
     },
     timestamp:{
         type:Date,
-        default: Date.now(),
+        default: Date.now,
         trim: true
     },
     goodAnswer:{

@@ -106,7 +106,7 @@ const getUniversity = async (req, res, next)=>{
 
 const getAllQuestions = async (req, res)=>{
     try{
-        const questions = await question.find({});
+        const questions = await question.find({}).sort({timestamp:-1});
         if(!questions)
         {
             return res.status(404).json({error:`No questions found`});
