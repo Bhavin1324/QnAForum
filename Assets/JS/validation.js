@@ -104,7 +104,7 @@ function requireFieldValidator(...args) {
 
 async function userSwill(elem, passelem) {
     try {
-        const response = await fetch(`/api/v1/users/${elem.value}`);
+        const response = await fetch(`/api/v1/users/user/${elem.value}`);
         if (response.status == 200) {
             const { singleUser } = await response.json();
             // console.log(singleUser);
@@ -181,7 +181,7 @@ async function varifyUniversity(emailField) {
 async function enrollUser() {
     try {
         const uni = await varifyUniversity(regEmail);
-        const userExist = await fetch(`/api/v1/users/${regEmail.value}`);
+        const userExist = await fetch(`/api/v1/users/user/${regEmail.value}`);
         if(userExist.status == 200){
             alert('User is already enrolled!!!');    
             return false;

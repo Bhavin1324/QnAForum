@@ -13,14 +13,29 @@ const getAllUsers = async (req, res, next)=>{
 }
 const getUser = async (req, res, next)=>{
     try{
-        const {id:email} = req.params;
-        const singleUser = await users.findOne({email:email});
+        const {email:userEmail} = req.params;
+        const singleUser = await users.findOne({email:userEmail});
         if(!singleUser){
-            return res.status(404).json({error:`No user found with email ${email}`})
+            return res.status(404).json({error:`No user found with email ${userEmail}`})
         }
         const passDec = cryptr.decrypt(singleUser.password);
         singleUser.password = passDec;
         res.status(200).json({singleUser});
+    }
+    catch(err){
+        res.status(500).json({error: err});
+    }
+}
+const getUserById = async (req, res, next)=>{
+    try{
+        const {id:userID} = req.params;
+        const singleUserById = await users.findOne({_id:userID});
+        if(!singleUserById){
+            return res.status(404).json({error:`No user found with ID ${userID}`})
+        }
+        const passDec = cryptr.decrypt(singleUserById.password);
+        singleUserById.password = passDec;
+        res.status(200).json({singleUserById});
     }
     catch(err){
         res.status(500).json({error: err});
@@ -209,6 +224,7 @@ const updateAnswer = async (req, res)=>{
 module.exports = {
     getAllUsers,
     getUser,
+    getUserById,
     createUser,
     deleteUser,
     updateUser,
@@ -220,5 +236,6 @@ module.exports = {
     getAllAnswers,
     createAnswer,
     deleteAnswer,
-    updateAnswer
+    updateAnswer,
+    
 };

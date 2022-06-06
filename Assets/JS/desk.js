@@ -16,7 +16,7 @@ function utilWork() {
     let commentBox = document.querySelectorAll('.comment-box');
     let commentCollapse = document.querySelectorAll('.collapse-comment');
     commentCollapse.forEach(comCol => {
-        comCol.addEventListener('click', ()=>{
+        comCol.addEventListener('click', () => {
             let content = comCol.parentElement.parentElement.nextElementSibling.firstElementChild;
             comCol.classList.toggle('rotate-180');
             if (content.style.maxHeight) {
@@ -35,17 +35,22 @@ logoutRef.addEventListener('click', () => {
 })
 
 // --- Getting user information ---//
-async function getCurrentUser(){
-    try{
+async function getCurrentUser() {
+    try {
         const curUserEmail = sessionStorage.getItem('email');
-        const response = await fetch(`/api/v1/users/${curUserEmail}`);
-        const {singleUser} = await response.json();
+        const response = await fetch(`/api/v1/users/user/${curUserEmail}`);
+        const { singleUser } = await response.json();
         delete singleUser.password;
         return singleUser;
     }
-    catch(error){
+    catch (error) {
         alert(`Internal error ocuured`);
     }
+}
+async function getSpecificUser(id) {
+    const response = await fetch(`/api/v1/users/${id}`);
+    const { singleUserById } = await response.json();
+    return singleUserById.name;
 }
 //--- Get request for fetching all  questions --- //
 let feedExist = document.querySelector('.feed-exist');
@@ -54,17 +59,21 @@ async function getQuesitons(callback) {
     try {
         const response = await fetch('/api/v1/questions');
         const { questions } = await response.json();
+        // questions.forEach(q=>getSpecificUser(q.userID));
+        // (questions.userID);
         if (questions.length < 1) {
             feedExist.textContent = `No feed found! :(`;
             return;
         }
-        const allQuestions = questions.map(ques=>{
-            return `<div class="postWrapper md:mx-4 mt-1 mb-2 border-[1px] rounded-lg px-4 py-2 shadow-md bg-slate-200">
+        postContainer.innerHTML = "";
+        questions.forEach(async (ques) => {
+            const u = await getSpecificUser(ques.userID);
+            postContainer.innerHTML += `<div class="postWrapper md:mx-4 mt-1 mb-2 border-[1px] rounded-lg px-4 py-2 shadow-md bg-slate-200">
             <div class="header px-2">
                 <div class="dp flex gap-1 items-center">
                     <img src="../images/user.jpg" alt="" class="mt-2 h-[40px] w-[40px] rounded-full">
                     <div class="name-panel flex flex-col justify-center">
-                        <div class="username mx-3">Alex jenn</div>
+                        <div class="username mx-3">${u}</div>
                     </div>
                     <div class="certified-q">
                         <i class="fa fa-circle-check text-[20px] text-[#0c4363] hover:text-[#1b8c94] pt-1"></i>
@@ -126,21 +135,20 @@ async function getQuesitons(callback) {
                 </div>
             </div>
         </div>`
-        }).join(' ');
-        postContainer.innerHTML = allQuestions;
         callback();
+        })
     }
     catch (error) {
         feedExist.textContent = `Oops! Something wen wrong :(`;
     }
 }
-const runRefresher = async ()=>{
+const runRefresher = async () => {
     await getQuesitons(utilWork);
 }
 runRefresher();
 // --- posting questions --- //
-async function postQuestion(){
-    try{
+async function postQuestion() {
+    try {
         const user = await getCurrentUser();
         const data = {
             title: questionTitle.value,
@@ -148,18 +156,18 @@ async function postQuestion(){
             userID: user._id,
             anonymous: postVisiblity.value
         }
-        const response = await fetch('/api/v1/questions',{
+        const response = await fetch('/api/v1/questions', {
             method: 'POST',
-            headers: { 'content-type': 'application/json;charset=utf-8'},
+            headers: { 'content-type': 'application/json;charset=utf-8' },
             body: JSON.stringify(data)
         });
         runRefresher();
     }
-    catch(error){
+    catch (error) {
         alert('Unable to post questions. Something went wrong!');
     }
 }
-postQuestionButton.addEventListener('click',(e)=>{
+postQuestionButton.addEventListener('click', (e) => {
     e.preventDefault();
     postQuestion();
     history.go(-1);
