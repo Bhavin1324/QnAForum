@@ -21,14 +21,14 @@
                 <img src="../images/user.jpg" alt=""
                     class="md:h-[50px] md:w-[50px] h-[35px] w-[35px] rounded-full my-1 self-center">
 
-                    <!-- User badeg -->
+                <!-- User badeg -->
                 <div id="UserBadge" class="hidden lg:block self-center mx-2 relative"></div>
                 <div
                     class="dropdown bg-[#1a6e9b] shadow-md rounded-md absolute top-10 md:top-14 lg:left-8 z-[2] hidden  group-hover:block">
                     <div class="px-3 py-1 transition-all duration-200 hover:bg-[#075072] hover:rounded-md"><a
                             href="#">Profile</a></div>
-                    <div class="px-3 py-1 transition-all duration-200 hover:bg-[#075072] hover:rounded-md"><a id="logout"
-                            href="/">Logout</a></div>
+                    <div class="px-3 py-1 transition-all duration-200 hover:bg-[#075072] hover:rounded-md"><a
+                            id="logout" href="/">Logout</a></div>
                 </div>
             </div>
         </div>
@@ -64,7 +64,6 @@
         <!-- left navigation -->
         <div class="hidden md:inline-block navigation-v w-[20%]">
             <ul class="mx-2 my-2 sticky top-14 z-0">
-
                 <li
                     class="ln newest-ln my-1 py-2 px-2 hover:bg-slate-200 hover:border-l-2 hover:border-l-[#0c4363] cursor-pointer">
                     <i class="fa fa-house pt-1 text-xl text-[#0c4363] hover:text-[#1b8c94] mr-3"></i><a href="#"
@@ -85,11 +84,11 @@
                     <i class="fa fa-handshake-angle pt-1 text-xl text-[#0c4363] hover:text-[#1b8c94] mr-3"></i><a
                         href="#" class="active:text-[#1b8c94]">Help</a>
                 </li>
-
             </ul>
         </div>
         <!-- Posts /feeds  -->
         <div class="post-content md:border-l-gray-200 md:border-l-2 md:w-[70%]">
+            <div class="feed-exist mx-4 text-slate-400 text-center text-xl"></div>
             <div class="postWrapper md:mx-4 mt-1 mb-2 border-[1px] rounded-lg px-4 py-2 shadow-md bg-slate-200">
                 <div class="header px-2">
                     <div class="dp flex gap-1 items-center">
@@ -110,11 +109,7 @@
                         </div>
                         <div class="q-answer">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam iusto
                             labore expedita minus obcaecati, quae blanditiis neque illum facere pariatur molestias.
-                            Suscipit reprehenderit soluta animi voluptate odio repellendus odit magnam excepturi vitae
-                            natus impedit eveniet reiciendis ut porro eius quidem, consequuntur molestias? Dolorem,
-                            vitae ipsum! Ut doloribus debitis quae, perferendis perspiciatis tempore? Deserunt incidunt
-                            voluptate placeat fugit, numquam soluta aut autem dolor earum enim mollitia assumenda
-                            reprehenderit, ratione dolores hic.</div>
+                            Suscipit reprehenderit</div>
                     </div>
                     <!-- <div class="my-4 mx-auto w-[40%] h-[40%]"><img src="../Assets/images/HomeImage.jpg" alt=""></div> -->
                 </div>
@@ -190,23 +185,23 @@
             <a href="" class="close absolute top-2 right-6 font-bold text-2xl">&times;</a>
             <div class="content max-h-[50%] overflow-auto">
                 <h3 class="text-2xl font-semibold text-center mt-11 mb-6">Ask a question</h3>
-                <form action="" method="post" class="w-[80%] my-1 mx-auto">
+                <form method="post" class="w-[80%] my-1 mx-auto">
                     <div class="text-lg">Title</div>
                     <div><input type="text" name="question" id="ques" class="title form-inputBox"
-                            placeholder="e.g. how can I create anonymous functions?"></div>
+                            placeholder="e.g. how can I create anonymous functions in javascript?"></div>
                     <div class="text-lg">Body</div>
                     <div><textarea name="qBody" id="ques-body" rows="10" class="form-inputBox"
                             placeholder="Include all the information someone would need to answer your question"></textarea>
                     </div>
-                    <label for="semester">Visiblity </label>
+                    <label for="post-visiblity">Visiblity </label>
                     <div class="w-1/3">
-                        <select id="semester" name="semester" class="Semester form-inputBox">
-                            <option value="public">Public</option>
-                            <option value="anonymous">Anonymous</option>
+                        <select id="post-visiblity" name="post-visiblity" class="post-visiblity form-inputBox">
+                            <option value="false">Public</option>
+                            <option value="true">Anonymous</option>
                         </select>
                     </div>
                     <div class="mb-6">
-                        <button type="submit" value="submit" name="submit" id="signup" class="cool-btn text-[18px]">Post
+                        <button type="submit" value="submit" name="submit" id="post-question" class="cool-btn text-[18px]">Post
                             your question</button>
                     </div>
                 </form>
@@ -215,26 +210,5 @@
     </div>
     </div>
 </body>
-<script>
-    let search = document.querySelector('.collapse-search');
-    let content = document.querySelector('.collapse-content');
-    search.onclick = () => {
-        content.classList.toggle('hidden');
-        content.classList.toggle('flex');
-    }
-    let commentBox = document.querySelectorAll('.comment-box');
-    let commentCollapse = document.querySelectorAll('.collapse-comment');
-    commentCollapse.forEach(comCol => {
-        comCol.addEventListener('click', function () {
-            let content = comCol.parentElement.parentElement.nextElementSibling.firstElementChild;
-            comCol.classList.toggle('rotate-180');
-            if (content.style.maxHeight) {
-                content.style.maxHeight = null;
-            } else {
-                content.style.maxHeight = content.scrollHeight + "px";
-            }
-        })
-    }) 
-</script>
 
 </html>
