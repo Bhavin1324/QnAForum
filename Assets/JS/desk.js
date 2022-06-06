@@ -139,7 +139,7 @@ async function getQuesitons(callback) {
         })
     }
     catch (error) {
-        feedExist.textContent = `Oops! Something wen wrong :(`;
+        feedExist.textContent = `Oops! Something went wrong :(`;
     }
 }
 const runRefresher = async () => {
