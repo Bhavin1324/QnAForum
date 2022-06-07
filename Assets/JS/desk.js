@@ -1,12 +1,14 @@
 import requireFieldValidator from './validation.js';
 import { leftNavActive } from "./utility.js";
 leftNavActive();
-//  DOM elements 
+// DOM elements 
 let questionTitle = document.querySelector('#ques');
 let questionBody = document.querySelector('#ques-body');
 let postVisiblity = document.querySelector('#post-visiblity');
 let postQuestionButton = document.querySelector('#post-question');
-
+let postSearchBtn = document.querySelectorAll('.searchButton');
+let postSearchInput = document.querySelectorAll('.search-field');
+//! --- Utitlity function for dropdown and left navigation bar ---//
 function utilWork() {
     let search = document.querySelector('.collapse-search');
     let content = document.querySelector('.collapse-content');
@@ -28,6 +30,8 @@ function utilWork() {
         })
     })
 }
+
+//! --- Clearing session on user logout ---//
 let logoutRef = document.querySelector('#logout');
 let nameLabel = document.querySelector('#UserBadge');
 nameLabel.textContent = sessionStorage.getItem('name');
@@ -35,7 +39,7 @@ logoutRef.addEventListener('click', () => {
     sessionStorage.clear();
 })
 
-// --- Getting user information ---//
+//! --- Getting user information ---//
 async function getCurrentUser() {
     try {
         const curUserEmail = sessionStorage.getItem('email');
@@ -53,7 +57,9 @@ async function getSpecificUser(id) {
     const { singleUserById } = await response.json();
     return singleUserById.name;
 }
-//--- Get request for fetching all  questions --- //
+
+
+//! --- GET request for fetching all  questions --- //
 let feedExist = document.querySelector('.feed-exist');
 let postContainer = document.querySelector('.post-content');
 async function getQuesitons(callback) {
@@ -66,7 +72,7 @@ async function getQuesitons(callback) {
             feedExist.textContent = `No feed found! :(`;
             return;
         }
-        postContainer.innerHTML = "";
+        postContainer.innerHTML = `<div class="feed-exist mx-4 text-slate-400 text-center text-xl"></div>`;
         questions.forEach(async (ques) => {
             const u = await getSpecificUser(ques.userID);
             postContainer.innerHTML += `<div class="postWrapper md:mx-4 mt-1 mb-2 border-[1px] rounded-lg px-4 py-2 shadow-md bg-slate-200">
@@ -85,7 +91,7 @@ async function getQuesitons(callback) {
             <div class="main p-2 pt-2 lg:p-4">
                 <div class="text-content">
                     <div class="q-title font-semibold text-lg pb-3 px-2">${ques.title}</div>
-                    <div class="q-answer">${ques.description}</div>
+                    <div class="q-desc">${ques.description}</div>
                 </div>
             </div>
             <div class="comment-tool flex justify-center items-center gap-4 mx-auto my-1">
@@ -144,11 +150,15 @@ async function getQuesitons(callback) {
         feedExist.textContent = `Oops! Something went wrong :(`;
     }
 }
+
+//! Refresher for refreshing feed on home page
 const runRefresher = async () => {
     await getQuesitons(utilWork);
 }
 runRefresher();
-// --- posting questions --- //
+
+
+//! --- posting questions --- //
 async function postQuestion() {
     try {
         const fieldEmpty = requireFieldValidator(questionTitle);
@@ -183,3 +193,53 @@ postQuestionButton.addEventListener('click', (e) => {
     e.preventDefault();
     postQuestion();
 });
+
+
+
+//! --- Search functionality ---//
+postSearchInput.forEach(inpText => {
+    let flag = 0,elem;
+    inpText.addEventListener('input', () => {
+        let count = 0, countAlter = 0;
+        let postWrappers = document.querySelectorAll('.postWrapper');
+        let stext = inpText.value.toLowerCase();
+        postWrappers.forEach(post => {
+            let postTitle = post.querySelector('.q-title').textContent.toLowerCase();
+            let postDesc = post.querySelector('.q-desc').textContent.toLowerCase();
+            post.classList.remove('block');
+            post.nextElementSibling.classList.remove('block');
+            post.classList.remove('hidden');
+            post.nextElementSibling.classList.remove('hidden');
+            if (postTitle.includes(stext)) {
+                post.classList.add('block');
+                post.nextElementSibling.classList.add('block');
+            }
+            else {
+                post.classList.add('hidden');
+                post.nextElementSibling.classList.add('hidden');
+            }
+            count++;
+        })
+        postWrappers.forEach(post => {
+            if (post.classList.contains('hidden')) {
+                countAlter++;
+            }
+            if (countAlter == count && flag == 0) {
+                flag = 1;
+                elem = document.createElement('div');
+                elem.classList.add('resultError');
+                elem.style.fontSize = '20px';
+                elem.style.color = 'grey';
+                elem.style.textAlign = 'center';
+                elem.textContent = 'No result found!';
+                postContainer.appendChild(elem);
+            }
+            else{
+                flag = 0;
+            }
+            if(postContainer.lastElementChild.classList.contains('resultError') && flag == 0){
+                postContainer.removeChild(postContainer.lastChild);
+            }
+        })
+    })
+})
