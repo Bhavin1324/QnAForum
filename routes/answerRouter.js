@@ -4,9 +4,10 @@ const{
     getAllAnswers,
     createAnswer,
     deleteAnswer,
-    updateAnswer
+    updateAnswer,
+    getAnswerByQuesId
 } = require('../controller/forumController');
 
 router.route('/').get(getAllAnswers).post(createAnswer);
-router.route('/:id').delete(deleteAnswer).patch(updateAnswer);
+router.route('/:id').get(getAnswerByQuesId).delete(deleteAnswer).patch(updateAnswer);
 module.exports = router;

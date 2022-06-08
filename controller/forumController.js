@@ -1,7 +1,7 @@
 const Cryptr = require('cryptr');
 const {users, university, question, answer} = require('../models/forumModel');
 const cryptr = new Cryptr('RegistartionPassword');
-//User access
+//!--- User access
 const getAllUsers = async (req, res, next)=>{
     try{
         const allUsers = await users.find({});
@@ -85,7 +85,7 @@ const updateUser = async (req, res, next)=>{
 }
 
 
-//University access
+//!--- University access
 const getUniversity = async (req, res, next)=>{
     try{
         const {emailPostfix} = req.params;
@@ -102,7 +102,7 @@ const getUniversity = async (req, res, next)=>{
 }
 
 
-//questions access
+//!--- questions access
 
 const getAllQuestions = async (req, res)=>{
     try{
@@ -161,9 +161,22 @@ const updateQuestion = async (req, res)=>{
     }
 }
 
+const getQuestionByUserId = async(req, res)=>{
+    try{
+        const{id:userID} = req.params
+        const ques = await question.find({userID:userID})
+        if(!ques)
+        {
+            res.status(404).json({msg:`no answers found for ID: ${userID}`})
+        }
+        res.status(200).json({ques})
+    }
+    catch(err){
+        res.status(500).json({msg:err})
+    }
+}
 
-//answer controller
-
+//! ---answer controller
 const getAllAnswers = async (req, res)=>{
     try{
         const answers = await answer.find({});
@@ -176,6 +189,22 @@ const getAllAnswers = async (req, res)=>{
     catch(err)
     {
         res.status(500).json({msg: err})
+    }
+}
+
+const getAnswerByQuesId = async(req, res)=>{
+    try{
+        const{id:quesID} = req.params
+        const ans = await answer.find({questionID:quesID})
+        if(!ans)
+        {
+            res.status(404).json({msg:`no answers found for ID: ${quesID}`})
+        }
+        res.status(200).json({ans})
+    }
+    catch(err){
+        res.status(500).json({msg:err})
+
     }
 }
 
@@ -230,6 +259,7 @@ module.exports = {
     updateUser,
     getUniversity,
     getAllQuestions,
+    getQuestionByUserId,
     createQuestion,
     deleteQuestion,
     updateQuestion,
@@ -237,5 +267,5 @@ module.exports = {
     createAnswer,
     deleteAnswer,
     updateAnswer,
-    
+    getAnswerByQuesId
 };

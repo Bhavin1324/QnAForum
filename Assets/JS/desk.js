@@ -6,8 +6,13 @@ let questionTitle = document.querySelector('#ques');
 let questionBody = document.querySelector('#ques-body');
 let postVisiblity = document.querySelector('#post-visiblity');
 let postQuestionButton = document.querySelector('#post-question');
-let postSearchBtn = document.querySelectorAll('.searchButton');
+// let postSearchBtn = document.querySelectorAll('.searchButton');
 let postSearchInput = document.querySelectorAll('.search-field');
+let postAnswerText = document.querySelectorAll('.comment-tool'); 
+let postAnswerBtn = document.querySelectorAll('.comment-ans-btn'); 
+let checkAnony = document.querySelectorAll('.check-anony');
+
+
 //! --- Utitlity function for dropdown and left navigation bar ---//
 function utilWork() {
     let search = document.querySelector('.collapse-search');
@@ -53,44 +58,86 @@ async function getCurrentUser() {
     }
 }
 async function getSpecificUser(id) {
-    const response = await fetch(`/api/v1/users/${id}`);
-    const { singleUserById } = await response.json();
-    return singleUserById.name;
+    try {
+        const response = await fetch(`/api/v1/users/${id}`);
+        const { singleUserById } = await response.json();
+        return singleUserById;
+    }
+    catch (error) {
+        alert('Internal server error');
+        return;
+    }
 }
 
 
-//! --- GET request for fetching all  questions --- //
+//! --- GET request for fetching all questions and dom population --- //
 let feedExist = document.querySelector('.feed-exist');
 let postContainer = document.querySelector('.post-content');
 async function getQuesitons(callback) {
     try {
         const response = await fetch('/api/v1/questions');
         const { questions } = await response.json();
-        // questions.forEach(q=>getSpecificUser(q.userID));
-        // (questions.userID);
         if (questions.length < 1) {
             feedExist.textContent = `No feed found! :(`;
             return;
         }
         postContainer.innerHTML = `<div class="feed-exist mx-4 text-slate-400 text-center text-xl"></div>`;
-        questions.forEach(async (ques) => {
+        questions.forEach(async (ques, index) => {
             const u = await getSpecificUser(ques.userID);
+            let ans = await getAnsByQid(ques._id);
+            let emptyAns = "",  f = 0;
+            let givenAns;
+            if (ans.length == 0) {
+                f = 1;
+                emptyAns += `<div class="py-4">
+                <div class="posted-Comment">
+                    <div class="main p-0 pt-2 lg:px-4 lg:pt-1 lg:pb-4">
+                        <div class="text-content">Not answered yet</div>
+                    </div>
+                </div>
+            </div>`
+            }
+            else{
+                givenAns = await Promise.all(ans.map(async (answer) => {
+                    let uAnswer = await getSpecificUser(answer.userID);
+                    return `<div class="py-4">
+                        <div class="posted-Comment">
+                            <div class="header px-2">
+                                <div class="dp flex gap-1">
+                                    <img src="../images/user.jpg" alt="" class="mt-2 h-[40px] w-[40px] rounded-full">
+                                    <div class="name-panel flex flex-col justify-center">
+                                        <div class="username mx-3">${uAnswer.name}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="main p-0 pt-2 lg:px-4 lg:pt-1 lg:pb-4">
+                                <div class="text-content">${answer.description}</div>
+                            </div>
+                        </div>
+                    </div>`
+                }));
+                givenAns = givenAns.join(" ");
+            }
             postContainer.innerHTML += `<div class="postWrapper md:mx-4 mt-1 mb-2 border-[1px] rounded-lg px-4 py-2 shadow-md bg-slate-200">
             <div class="header px-2">
                 <div class="dp flex gap-1 items-center">
-                    <img src="../images/user.jpg" alt="" class="mt-2 h-[40px] w-[40px] rounded-full">
+                    <img src="../images/user.jpg" alt="" draggable="false" class="mt-2 h-[40px] w-[40px] rounded-full">
                     <div class="name-panel flex flex-col justify-center">
                         <div class="username mx-3 ${(ques.anonymous == true) ? 'block' : 'hidden'}">Anonymous</div>
-                        <div class="username mx-3 ${(ques.anonymous == false) ? 'block' : 'hidden'}">${u}</div>
+                        <div class="username mx-3 ${(ques.anonymous == false) ? 'block' : 'hidden'}">${u.name}</div>
                     </div>
                     <div class="certified-q">
                         <i class="fa fa-circle-check text-[20px] text-[#0c4363] hover:text-[#1b8c94] pt-1"></i>
                     </div>
+                    <div class="checkWrapper ml-auto select-none">
+                    <input type="checkbox" id="ckbox-${index + 1}" class="peer opacity-0 z-0">
+                    <label for="ckbox-${index + 1}" class="check-box pl-2">Answer as 'Anonymous'</label>
+                </div>
                 </div>
             </div>
             <div class="main p-2 pt-2 lg:p-4">
                 <div class="text-content">
-                    <div class="q-title font-semibold text-lg pb-3 px-2">${ques.title}</div>
+                    <div class="q-title font-semibold text-lg pb-3">${ques.title}</div>
                     <div class="q-desc">${ques.description}</div>
                 </div>
             </div>
@@ -106,41 +153,8 @@ async function getQuesitons(callback) {
             </div>
         </div>
         <div class="comment-box relative bottom-3">
-            <div
-                class="comment-wrapper md:mx-4 border-[1px] px-7 rounded-b-lg shadow-md bg-slate-200 max-h-0 overflow-auto transition-all duration-200">
-                <div class="py-4">
-                    <div class="posted-Comment">
-                        <div class="header px-2">
-                            <div class="dp flex gap-1">
-                                <img src="../images/user.jpg" alt="" class="mt-2 h-[40px] w-[40px] rounded-full">
-                                <div class="name-panel flex flex-col justify-center">
-                                    <div class="username mx-3">Jenny jacob</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="main p-0 pt-2 lg:px-4 lg:pt-1 lg:pb-4">
-                            <div class="text-content">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                Blanditiis
-                                doloru?
-                            </div>
-                        </div>
-                        <div class="header px-2">
-                            <div class="dp flex gap-1">
-                                <img src="../images/user.jpg" alt="" class="mt-2 h-[40px] w-[40px] rounded-full">
-                                <div class="name-panel flex flex-col justify-center">
-                                    <div class="username mx-3">Ken Finge</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="main p-0 pt-2 lg:px-4 lg:pt-1 lg:pb-4">
-                            <div class="text-content">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                Blanditiis
-                                doloru?Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente saepe
-                                pariatur omnis repellat asperiores. Quae vero placeat qui quos.
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="comment-wrapper md:mx-4 border-[1px] px-7 rounded-b-lg shadow-md bg-slate-200 max-h-0 overflow-auto transition-all duration-200">
+                ${(f == 0 ? givenAns : emptyAns)}
             </div>
         </div>`
             callback();
@@ -185,7 +199,7 @@ async function postQuestion() {
         }
     }
     catch (error) {
-        alert('Unable to post questions. Something went wrong!');
+        alert('Unable to post question. Something went wrong!');
     }
 
 }
@@ -195,10 +209,39 @@ postQuestionButton.addEventListener('click', (e) => {
 });
 
 
+//! ---GET request for answers - fetching answers by user id using GET request --- // 
+async function getAnsByQid(id) {
+    try {
+        const response = await fetch(`/api/v1/answers/${id}`);
+        const { ans } = await response.json();
+        return ans;
+    }
+    catch {
+        alert('Internal server error');
+        return;
+    }
+}
+
+//!--- POST call for posting answers ---//
+async function postAnswer(){
+    try{
+        /* const data = {
+
+        }
+        const response = await fetch(`/api/v1/answers`,{
+            method: 'POST',
+            headers: { 'content-type':'application/json;charset=utf-8' },
+            body: JSON.stringify();
+        }) */
+    }
+    catch(error){
+        alert('Unable to post the answer. Something went wrong!');
+    }
+}
 
 //! --- Search functionality ---//
 postSearchInput.forEach(inpText => {
-    let flag = 0,elem;
+    let flag = 0, elem;
     inpText.addEventListener('input', () => {
         let count = 0, countAlter = 0;
         let postWrappers = document.querySelectorAll('.postWrapper');
@@ -234,10 +277,10 @@ postSearchInput.forEach(inpText => {
                 elem.textContent = 'No result found!';
                 postContainer.appendChild(elem);
             }
-            else{
+            else {
                 flag = 0;
             }
-            if(postContainer.lastElementChild.classList.contains('resultError') && flag == 0){
+            if (postContainer.lastElementChild.classList.contains('resultError') && flag == 0) {
                 postContainer.removeChild(postContainer.lastChild);
             }
         })
