@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../style.css">
     <script src="https://kit.fontawesome.com/b361cd597d.js" crossorigin="anonymous"></script>
-    <script src="../JS/desk.js" type="module" defer></script>
-    <title>Document</title>
+    <script src="../JS/myPosts.js" type="module" defer></script>
+    <title>My Posts</title>
 </head>
 
 <body>
@@ -35,16 +35,14 @@
     </nav>
     <nav class="bg-slate-100 py-1 sticky top-0 z-[1] overflow-auto">
         <div class="nav-wrapper mx-auto flex justify-center sm:gap-4 gap-2 container">
-            <div class="question md:hidden bg-slate-300 border-b-2 border-[#0c4363] rounded-md">
-                <a href="#"><i class="fa fa-house pt-3 mx-3 text-lg text-[#0c4363] hover:text-[#1b8c94]"></i></a>
+            <div class="question md:hidden">
+                <a href="./Desk.html"><i class="fa fa-house pt-3 mx-3 text-lg text-[#0c4363] hover:text-[#1b8c94]"></i></a>
             </div>
             <div class="classroom md:hidden">
-                <a href=""><i
-                        class="fa fa-person-chalkboard pt-3 mx-3 text-lg text-[#0c4363] hover:text-[#1b8c94]"></i></a>
+                <a href=""><i class="fa fa-person-chalkboard pt-3 mx-3 text-lg text-[#0c4363] hover:text-[#1b8c94]"></i></a>
             </div>
-            <div class="mypost md:hidden">
-                <a href="./myPosts.html"><i
-                        class="fa fa-address-card pt-3 mx-3 text-lg text-[#0c4363] hover:text-[#1b8c94]"></i></a>
+            <div class="mypost md:hidden bg-slate-300 border-b-2 border-[#0c4363] rounded-md">
+                <a href="#"><i class="fa fa-address-card pt-3 mx-3 text-lg text-[#0c4363] hover:text-[#1b8c94]"></i></a>
             </div>
             <div class="collapse-search md:hidden">
                 <i class="fa fa-search pt-3 mx-3 text-lg text-[#0c4363] hover:text-[#1b8c94]"></i>
@@ -67,16 +65,16 @@
         <!-- left navigation -->
         <div class="hidden md:inline-block navigation-v w-[20%]">
             <ul class="mx-2 my-2 sticky top-14 z-0">
-                <a href="#">
-                    <li class="ln my-1 py-2 px-2 ease-out hover:bg-slate-200 hover:border-l-2 hover:border-l-[#0c4363] cursor-pointer active-ln">
+                <a href="./Desk.html">
+                    <li class="ln my-1 py-2 px-2 ease-out hover:bg-slate-200 hover:border-l-2 hover:border-l-[#0c4363] cursor-pointer">
                         <i class="fa fa-house pt-1 text-xl text-[#0c4363] hover:text-[#1b8c94] mr-3"></i>Questions
                 </li></a>
                 <a href="#">
                     <li class="ln my-1 py-2 px-2 hover:bg-slate-200 hover:border-l-2 hover:border-l-[#0c4363] cursor-pointer">
                         <i class="fa fa-person-chalkboard pt-1 text-xl text-[#0c4363] hover:text-[#1b8c94] mr-3"></i>Classroom
                 </li></a>
-                <a href="./myPosts.html"><li
-                    class="ln my-1 py-2 px-2 hover:bg-slate-200 hover:border-l-2 hover:border-l-[#0c4363] cursor-pointer">
+                <a href="#"><li
+                    class="ln my-1 py-2 px-2 hover:bg-slate-200 hover:border-l-2 hover:border-l-[#0c4363] cursor-pointer active-ln">
                     <i class="fa fa-address-card pt-1 text-xl text-[#0c4363] hover:text-[#1b8c94] mr-3"></i>My Posts
                 </li></a>
                 <!-- <li
@@ -92,8 +90,7 @@
             <div class="postWrapper md:mx-4 mt-1 mb-2 border-[1px] rounded-lg px-4 py-2 shadow-md bg-slate-200">
                 <div class="header px-2">
                     <div class="dp flex gap-1 items-center">
-                        <img src="../images/user.jpg" alt="" draggable="false"
-                            class="mt-2 h-[40px] w-[40px] rounded-full">
+                        <img src="../images/user.jpg" alt="" draggable="false" class="mt-2 h-[40px] w-[40px] rounded-full">
                         <div class="name-panel flex flex-col justify-center">
                             <div class="username mx-3">Alex jenn</div>
                         </div>
@@ -217,5 +214,4 @@
     </div>
     </div>
 </body>
-
 </html>

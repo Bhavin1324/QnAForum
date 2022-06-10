@@ -36,10 +36,8 @@ function utilWork() {
 }
 //! --- Utiltity function for posting answer --- //
 function postAnswerUtil() {
-    postAnswerText = document.querySelectorAll('.comment-body');
     postAnswerBtn = document.querySelectorAll('.comment-ans-btn');
-    checkAnony = document.querySelectorAll('.check-anony');
-    postAnswerBtn.forEach((btn, index) => {
+    postAnswerBtn.forEach((btn) => {
         btn.addEventListener('click', () => {
             if (btn.parentElement.previousElementSibling.value.trim()) {
                 const description = btn.parentElement.previousElementSibling.value;
@@ -164,8 +162,8 @@ async function getQuesitons(callback, callback2) {
                 <div class="w-fit ml-auto"><button class="comment-ans-btn btn h-[35px]">Answer</button></div>
             </div>
             <div class="w-fit mx-auto">
-                <button class="collapse-comment px-7 transition-all duration-200"><i
-                        class="fa fa-angle-down text-[28px] text-[#0c4363] hover:text-[#1b8c94] "></i></button>
+                <button class="collapse-comment px-7 transition-all duration-200 "><i
+                        class="fa fa-angle-down text-[28px] text-[#0c4363] hover:text-[#1b8c94]"></i></button>
             </div>
         </div>
         <div class="comment-box relative bottom-3">
@@ -265,49 +263,55 @@ async function postAnswer(description, anony, quesID) {
 
 
 //! --- Search functionality ---//
-postSearchInput.forEach(inpText => {
-    let flag = 0, elem;
-    inpText.addEventListener('input', () => {
-        let count = 0, countAlter = 0;
-        let postWrappers = document.querySelectorAll('.postWrapper');
-        let stext = inpText.value.toLowerCase();
-        postWrappers.forEach(post => {
-            let postTitle = post.querySelector('.q-title').textContent.toLowerCase();
-            let postDesc = post.querySelector('.q-desc').textContent.toLowerCase();
-            post.classList.remove('block');
-            post.nextElementSibling.classList.remove('block');
-            post.classList.remove('hidden');
-            post.nextElementSibling.classList.remove('hidden');
-            if (postTitle.includes(stext)) {
-                post.classList.add('block');
-                post.nextElementSibling.classList.add('block');
-            }
-            else {
-                post.classList.add('hidden');
-                post.nextElementSibling.classList.add('hidden');
-            }
-            count++;
-        })
-        postWrappers.forEach(post => {
-            if (post.classList.contains('hidden')) {
-                countAlter++;
-            }
-            if (countAlter == count && flag == 0) {
-                flag = 1;
-                elem = document.createElement('div');
-                elem.classList.add('resultError');
-                elem.style.fontSize = '20px';
-                elem.style.color = 'grey';
-                elem.style.textAlign = 'center';
-                elem.textContent = 'No result found!';
-                postContainer.appendChild(elem);
-            }
-            else {
-                flag = 0;
-            }
-            if (postContainer.lastElementChild.classList.contains('resultError') && flag == 0) {
-                postContainer.removeChild(postContainer.lastChild);
-            }
+function searchPosts(){
+    postSearchInput.forEach(inpText => {
+        let flag = 0, elem;
+        inpText.addEventListener('input', () => {
+            let count = 0, countAlter = 0;
+            let postWrappers = document.querySelectorAll('.postWrapper');
+            let stext = inpText.value.toLowerCase();
+            postWrappers.forEach(post => {
+                let postTitle = post.querySelector('.q-title').textContent.toLowerCase();
+                let postDesc = post.querySelector('.q-desc').textContent.toLowerCase();
+                post.classList.remove('block');
+                post.nextElementSibling.classList.remove('block');
+                post.classList.remove('hidden');
+                post.nextElementSibling.classList.remove('hidden');
+                if (postTitle.includes(stext)) {
+                    post.classList.add('block');
+                    post.nextElementSibling.classList.add('block');
+                }
+                else {
+                    post.classList.add('hidden');
+                    post.nextElementSibling.classList.add('hidden');
+                }
+                count++;
+            })
+            postWrappers.forEach(post => {
+                if (post.classList.contains('hidden')) {
+                    countAlter++;
+                }
+                if (countAlter == count && flag == 0) {
+                    flag = 1;
+                    elem = document.createElement('div');
+                    elem.classList.add('resultError');
+                    elem.style.fontSize = '20px';
+                    elem.style.color = 'grey';
+                    elem.style.textAlign = 'center';
+                    elem.textContent = 'No result found!';
+                    postContainer.appendChild(elem);
+                }
+                else {
+                    flag = 0;
+                }
+                if (postContainer.lastElementChild.classList.contains('resultError') && flag == 0) {
+                    postContainer.removeChild(postContainer.lastChild);
+                }
+            })
         })
     })
-})
+}
+searchPosts();
+
+export default searchPosts;
+export {getCurrentUser, utilWork, getAnsByQid, postAnswerUtil, postAnswer, postQuestion, questionTitle, questionBody, postVisiblity, postSearchInput}
