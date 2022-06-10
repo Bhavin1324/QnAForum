@@ -8,10 +8,9 @@ let postVisiblity = document.querySelector('#post-visiblity');
 let postQuestionButton = document.querySelector('#post-question');
 // let postSearchBtn = document.querySelectorAll('.searchButton');
 let postSearchInput = document.querySelectorAll('.search-field');
-let postAnswerText = document.querySelectorAll('.comment-tool'); 
-let postAnswerBtn = document.querySelectorAll('.comment-ans-btn'); 
-let checkAnony = document.querySelectorAll('.check-anony');
-
+let postAnswerText;
+let postAnswerBtn;
+let checkAnony;
 
 //! --- Utitlity function for dropdown and left navigation bar ---//
 function utilWork() {
@@ -35,6 +34,23 @@ function utilWork() {
         })
     })
 }
+//! --- Utiltity function for posting answer --- //
+function postAnswerUtil() {
+    postAnswerText = document.querySelectorAll('.comment-body');
+    postAnswerBtn = document.querySelectorAll('.comment-ans-btn');
+    checkAnony = document.querySelectorAll('.check-anony');
+    postAnswerBtn.forEach((btn, index) => {
+        btn.addEventListener('click', () => {
+            if (btn.parentElement.previousElementSibling.value.trim()) {
+                const description = btn.parentElement.previousElementSibling.value;
+                const anonymous = btn.parentElement.parentElement.previousElementSibling.previousElementSibling.firstElementChild.lastElementChild.firstElementChild.checked;
+                const quesID = btn.parentElement.previousElementSibling.id;
+                postAnswer(description, anonymous, quesID);
+            }
+        })
+    })
+}
+
 
 //! --- Clearing session on user logout ---//
 let logoutRef = document.querySelector('#logout');
@@ -73,7 +89,7 @@ async function getSpecificUser(id) {
 //! --- GET request for fetching all questions and dom population --- //
 let feedExist = document.querySelector('.feed-exist');
 let postContainer = document.querySelector('.post-content');
-async function getQuesitons(callback) {
+async function getQuesitons(callback, callback2) {
     try {
         const response = await fetch('/api/v1/questions');
         const { questions } = await response.json();
@@ -85,7 +101,7 @@ async function getQuesitons(callback) {
         questions.forEach(async (ques, index) => {
             const u = await getSpecificUser(ques.userID);
             let ans = await getAnsByQid(ques._id);
-            let emptyAns = "",  f = 0;
+            let emptyAns = "", f = 0;
             let givenAns;
             if (ans.length == 0) {
                 f = 1;
@@ -97,7 +113,7 @@ async function getQuesitons(callback) {
                 </div>
             </div>`
             }
-            else{
+            else {
                 givenAns = await Promise.all(ans.map(async (answer) => {
                     let uAnswer = await getSpecificUser(answer.userID);
                     return `<div class="py-4">
@@ -106,7 +122,8 @@ async function getQuesitons(callback) {
                                 <div class="dp flex gap-1">
                                     <img src="../images/user.jpg" alt="" class="mt-2 h-[40px] w-[40px] rounded-full">
                                     <div class="name-panel flex flex-col justify-center">
-                                        <div class="username mx-3">${uAnswer.name}</div>
+                                        <div class="username mx-3 ${(answer.anonymous == true)? 'block' : 'hidden'}">Anonymous</div>
+                                        <div class="username mx-3 ${(answer.anonymous == false)?'block':'hidden'}">${uAnswer.name}</div>
                                     </div>
                                 </div>
                             </div>
@@ -142,10 +159,9 @@ async function getQuesitons(callback) {
                 </div>
             </div>
             <div class="comment-tool flex justify-center items-center gap-4 mx-auto my-1">
-                <textarea name="commentarea" id="comment-body"
-                    class="form-inputBox resize-none transition-all duration-300 focus:h-[200px] my-0 h-[40px]"
+                <textarea name="commentarea" id="${ques._id}" class="comment-body form-inputBox resize-none transition-all duration-300 focus:h-[200px] my-0 h-[40px]"
                     placeholder="Write your thoughts..."></textarea>
-                <div class="w-fit ml-auto"><button class="btn h-[35px]">Answer</button></div>
+                <div class="w-fit ml-auto"><button class="comment-ans-btn btn h-[35px]">Answer</button></div>
             </div>
             <div class="w-fit mx-auto">
                 <button class="collapse-comment px-7 transition-all duration-200"><i
@@ -158,6 +174,7 @@ async function getQuesitons(callback) {
             </div>
         </div>`
             callback();
+            callback2();
         })
     }
     catch (error) {
@@ -167,7 +184,7 @@ async function getQuesitons(callback) {
 
 //! Refresher for refreshing feed on home page
 const runRefresher = async () => {
-    await getQuesitons(utilWork);
+    await getQuesitons(utilWork, postAnswerUtil);
 }
 runRefresher();
 
@@ -222,22 +239,30 @@ async function getAnsByQid(id) {
     }
 }
 
-//!--- POST call for posting answers ---//
-async function postAnswer(){
-    try{
-        /* const data = {
 
+//!--- POST call for posting answers ---//
+async function postAnswer(description, anony, quesID) {
+    try {
+        const curUser = await getCurrentUser();
+        const AnswerData = {
+            description: description,
+            questionID: quesID,
+            userID: curUser._id,
+            anonymous: anony
         }
-        const response = await fetch(`/api/v1/answers`,{
+        const response = await fetch(`/api/v1/answers`, {
             method: 'POST',
-            headers: { 'content-type':'application/json;charset=utf-8' },
-            body: JSON.stringify();
-        }) */
+            headers: { 'content-type': 'application/json;charset=utf-8' },
+            body: JSON.stringify(AnswerData)
+        })
+        runRefresher();
+
     }
-    catch(error){
+    catch (error) {
         alert('Unable to post the answer. Something went wrong!');
     }
 }
+
 
 //! --- Search functionality ---//
 postSearchInput.forEach(inpText => {

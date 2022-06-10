@@ -43,17 +43,17 @@ const uniSchema = new mongoose.Schema({
 });
 
 const questionSchema = new mongoose.Schema({
-    title:{
-        type:String,
-        required:[true,'Title of the question is mandatory'],
+    title: {
+        type: String,
+        required: [true, 'Title of the question is mandatory'],
         trim: true
     },
-    description:{
-        type:String,
+    description: {
+        type: String,
         trim: true
     },
-    userID:{
-        type:mongoose.Schema.Types.ObjectId,
+    userID: {
+        type: mongoose.Schema.Types.ObjectId,
         required: true,
     },
     /*classID:{
@@ -61,18 +61,18 @@ const questionSchema = new mongoose.Schema({
         required:true,
         trim: true
     },*/
-    timestamp:{
-        type:Date,
+    timestamp: {
+        type: Date,
         default: Date.now,
         trim: true
     },
-    answered:{
-        type:Boolean,
+    answered: {
+        type: Boolean,
         default: false,
         trim: true
     },
-    anonymous:{
-        type:Boolean,
+    anonymous: {
+        type: Boolean,
         default: false,
         trim: true
     }
@@ -80,33 +80,33 @@ const questionSchema = new mongoose.Schema({
 })
 
 const answerSchema = new mongoose.Schema({
-    description:{
-        type:String,
-        required:[true,'Describe the answer'],
+    description: {
+        type: String,
+        required: [true, 'Describe the answer'],
         trim: true
     },
-    questionID:{
-        type:mongoose.Schema.Types.ObjectId,
+    questionID: {
+        type: mongoose.Schema.Types.ObjectId,
         required: true,
     },
-    userID:{
-        type:mongoose.Schema.Types.ObjectId,
+    userID: {
+        type: mongoose.Schema.Types.ObjectId,
         required: true,
     },
-    timestamp:{
-        type:Date,
+    timestamp: {
+        type: Date,
         default: Date.now,
         trim: true
     },
-    goodAnswer:{
-        type:Boolean,
+    goodAnswer: {
+        type: Boolean,
         default: false,
         trim: true
     },
-    anonymous:{
-        type:Boolean,
-        required:true,
-        trim: true
+    anonymous: {
+        type: Boolean,
+        required: true,
+        default: false
     }
 
 })
@@ -115,4 +115,4 @@ const users = mongoose.model('users', userSchema);
 const university = mongoose.model('universities', uniSchema);
 const question = mongoose.model('questions', questionSchema);
 const answer = mongoose.model('answers', answerSchema);
-module.exports = { users, university, question, answer};
+module.exports = { users, university, question, answer };
