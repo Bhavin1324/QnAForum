@@ -5,7 +5,7 @@ const commonRouter = require('./routes/userRouter');
 const uniRouter = require('./routes/uniRouter');
 const questionRouter = require('./routes/questionRouter');
 const answerRouter = require('./routes/answerRouter');
-
+const otpRouter = require('./routes/otpRouter');
 /* Importing connection module */
 const connectDB = require('./db/connection');
 
@@ -27,6 +27,7 @@ app.use('/api/v1/users',commonRouter);
 app.use('/api/v1/universities',uniRouter);
 app.use('/api/v1/questions', questionRouter);
 app.use('/api/v1/answers', answerRouter);
+app.use('/api/v1/otp', otpRouter);
 
 const start = async ()=>{
     try{

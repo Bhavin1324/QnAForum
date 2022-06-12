@@ -312,6 +312,3 @@ function searchPosts(){
     })
 }
 searchPosts();
-
-export default searchPosts;
-export {getCurrentUser, utilWork, getAnsByQid, postAnswerUtil, postAnswer, postQuestion, questionTitle, questionBody, postVisiblity, postSearchInput}
