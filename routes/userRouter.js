@@ -12,7 +12,7 @@ const {
 const router = express.Router();
 // user router
 router.route('/').get(getAllUsers).post(createUser);
-router.route('/:id').get(getUserById).delete(deleteUser).patch(updateUser);;
+router.route('/:id').get(getUserById).delete(deleteUser).patch(updateUser);
 router.route('/user/:email').get(getUser);
 
 //university router

@@ -94,9 +94,9 @@
             </ul>
         </div>
         <div class="post-content md:border-l-gray-200 md:border-l-2 md:w-[70%]">
-            <form action="#" method="patch" class="w-[80%] my-1 mx-auto" enctype="multipart/form-data">
-                <div class="form-inputBox">
-                    <img src="../images/user.jpg" class="" height="240" width="150">
+            <form action="#" method="post" class="w-full md:w-[80%] my-1 mx-auto" enctype="multipart/form-data">
+                <div>
+                    <img src="../images/user.jpg" class="rounded-full mx-auto h-[30%] w-[30%]">
                 </div>
                 <div>Upload Profile Image</div>
                 <div><input type="file" name="profilePic" id="profilePic" class="form-inputBox">
@@ -113,11 +113,8 @@
 
                 </div>
                 <div class="text-lg">Email</div>
-                <div><input type="email" name="regemail" id="regemail" class="Email form-inputBox"
+                <div><input type="email" name="profEmail" id="profEmail" class="Email form-inputBox"
                         placeholder="example@university.com"></div>
-
-                <div class="text-lg">Date of birth</div>
-                <div><input type="date" class="Date-of-birth form-inputBox" id="dob"></div>
                 <div class="fields flex justify-between gap-2">
                     <div class="w-1/2 text-lg">
                         <label for="gradYear">Graduation Year </label>

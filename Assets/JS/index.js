@@ -21,7 +21,7 @@ signUp.addEventListener('click', async (e) => {
     const ln = expressionValidator(lastName, "name");
     if (isEmptyReg == 0 && regE == true && regP == true && fn == true && ln == true) {
         const enrollStatus = await enrollUser();
-        if(enrollStatus == true){
+        if (enrollStatus == true) {
             alert('You are successfully registered');
             location.replace('/');
         }
@@ -31,8 +31,25 @@ signUp.addEventListener('click', async (e) => {
 changePass.addEventListener('click', (e) => {
     e.preventDefault();
     const isEmptyReg = requireFieldValidator(forgetEmail, forgetPass, reForgetPass);
-    if (isEmptyReg == 0 && expressionValidator(forgetEmail, "email") && expressionValidator(forgetPass, "password") && expressionValidator(reForgetPass, "password")) {
-        // alert('form has been submitted');
+    const fm= expressionValidator(forgetEmail, "email");
+    const fp = expressionValidator(forgetPass, "password");
+    const refp = expressionValidator(reForgetPass, "password")
+    if (isEmptyReg == 0 && fm == true && fp == true && refp == true) {
+        if (forgetPass.value === reForgetPass.value) {
+            console.log('Successfull change');
+        }
+        else {
+            let span = document.createElement('span');
+            span.textContent = `Passowrd should match`;
+            span.style.color = 'red';
+            span.style.margin = '0px 6px';
+            span.style.fontSize = '16px';
+            reForgetPass.style.borderColor = 'red';
+            reForgetPass.classList.add('focus:ring-red-500');
+            if (reForgetPass.parentElement.previousElementSibling.childElementCount == 0) {
+                reForgetPass.parentElement.previousElementSibling.appendChild(span);
+            }
+        }
     }
 
 })
