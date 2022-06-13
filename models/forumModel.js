@@ -34,6 +34,9 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Require graduation year'],
         trim: true
+    },
+    profileImage:{
+        type:String
     }
 })
 

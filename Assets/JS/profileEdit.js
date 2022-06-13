@@ -1,5 +1,7 @@
 import requireFieldValidator from './validation.js';
 import { leftNavActive } from "./utility.js";
+import { verifyUniversity,expressionValidator } from './validation.js';
+
 const firstName = document.querySelector('#fname');
 const lastName = document.querySelector('#lname');
 const profEmail = document.querySelector('#profEmail');
@@ -46,27 +48,31 @@ updateBtn.addEventListener('click', async (e) => {
     // await updateProfile();  
     e.preventDefault();
     try {
-        let user = await getCurrentUser();
+        const isEmptyReg = requireFieldValidator(firstName, lastName, profEmail, sem, gradYear);
+        const regE = expressionValidator(profEmail, "email");
+        const fn = expressionValidator(firstName, "name");
+        const ln = expressionValidator(lastName, "name");
+        const verifyUni = await verifyUniversity(profEmail);
+        if (isEmptyReg == 0 && regE == true && fn == true && ln == true && verifyUni!=null) {
 
-        console.log(user)
-        console.log(lname);
-        let user_id = user._id;
-        console.log(user_id);
-        const updateData = {
-            name: firstName.value.trim() + " " + lastName.value.trim(),
-            email: profEmail.value.trim(),
-            semester: sem.value,
-            graduationYear: gradYear.value
+            let user = await getCurrentUser();
+            let user_id = user._id;
+            const updateData = {
+                name: firstName.value.trim() + " " + lastName.value.trim(),
+                email: profEmail.value.trim(),
+                semester: sem.value,
+                graduationYear: gradYear.value
+            }
+            let response = await fetch(`/api/v1/users/${user_id}`,
+                {
+                    method: 'PATCH',
+                    headers: {
+                        'content-type': 'application/json;charset=utf-8'
+                    },
+                    body: JSON.stringify(updateData)
+                });
         }
-        let response = await fetch(`/api/v1/users/${user_id}`,
-            {
-                method: 'PATCH',
-                headers: {
-                    'content-type': 'application/json;charset=utf-8'
-                },
-                body: JSON.stringify(updateData)
-            });
-        
+
     } catch (error) {
         console.log(error);
     }
