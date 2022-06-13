@@ -141,12 +141,9 @@ async function getQuesitons(callback, callback2) {
                         <div class="username mx-3 ${(ques.anonymous == true) ? 'block' : 'hidden'}">Anonymous</div>
                         <div class="username mx-3 ${(ques.anonymous == false) ? 'block' : 'hidden'}">${u.name}</div>
                     </div>
-                    <div class="certified-q">
-                        <i class="fa fa-circle-check text-[20px] text-[#0c4363] hover:text-[#1b8c94] pt-1"></i>
-                    </div>
                     <div class="checkWrapper ml-auto select-none">
                     <input type="checkbox" id="ckbox-${index + 1}" class="peer opacity-0 z-0">
-                    <label for="ckbox-${index + 1}" class="check-box pl-2">Answer as 'Anonymous'</label>
+                    <label for="ckbox-${index + 1}" class="check-box pl-2">Anonymous</label>
                 </div>
                 </div>
             </div>

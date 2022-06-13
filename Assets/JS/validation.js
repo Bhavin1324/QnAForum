@@ -150,7 +150,7 @@ function calcAge(dateOfBirth) {
     let birthYear = new Date(dateOfBirth.value).getFullYear();
     return curYear - birthYear;
 }
-async function varifyUniversity(emailField) {
+async function verifyUniversity(emailField) {
     let emailFrag = emailField.value.split('@');
     let emailPostfix = emailFrag[1];
     try {
@@ -180,7 +180,7 @@ async function varifyUniversity(emailField) {
 }
 async function enrollUser() {
     try {
-        const uni = await varifyUniversity(regEmail);
+        const uni = await verifyUniversity(regEmail);
         const userExist = await fetch(`/api/v1/users/user/${regEmail.value}`);
         if(userExist.status == 200){
             alert('User is already enrolled!!!');    
@@ -226,6 +226,7 @@ export {
     expressionValidator,
     userSwill,
     enrollUser,
+    verifyUniversity,
     firstName,
     lastName,
     regEmail,

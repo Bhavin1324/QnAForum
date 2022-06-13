@@ -254,17 +254,17 @@ const getOtp = async (req, res, next) => {
         const transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-                user: 'bhavinjariwala.mscit19@vnsgu.ac.in',
-                pass: '#professionalpurp1042'
+                user: 'cubeqnaforum@gmail.com',
+                pass: 'qjyzdhsuxcazizto'
             },
             tls: {
                 rejectUnauthorized: false
             }
         });
         const mailOptions = {
-            from: 'bhavinjariwala.mscit19@vnsgu.ac.in',
+            from: 'cubeqnaforum@gmail.com',
             to: String(email),
-            subject: 'Testing the email',
+            subject: 'Cube: OTP for resetting password',
             text: `Your one time passwrord is ${otp}. Please do not share it with anyone.`
 
         }

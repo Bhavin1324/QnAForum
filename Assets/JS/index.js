@@ -2,6 +2,15 @@ import requireFieldValidator from './validation.js';
 import { expressionValidator, userSwill, enrollUser, loginEmail, loginPass, firstName, lastName, regEmail, regPass, dateOfBirth, sem, gradYear, forgetEmail, forgetPass, reForgetPass, login, signUp, changePass } from './validation.js';
 import hamResponse from './utility.js';
 hamResponse();
+
+const getOtpButton = document.querySelector('.get-otp-btn');
+const verifyButton = document.querySelector('.verify-otp');
+
+const otpLabel =  document.querySelector('.enter-otp-lbl');
+const otpInput = document.querySelector('.OTP');
+const verifyOtp = document.querySelector('.verify-otp'); 
+
+
 login.addEventListener('click', async (e) => {
     e.preventDefault();
     const isEmptyLogin = requireFieldValidator(loginEmail, loginPass);
@@ -28,6 +37,28 @@ signUp.addEventListener('click', async (e) => {
     }
 
 })
+getOtpButton.addEventListener('click',async(e)=>{
+    e.preventDefault();
+    getOtpButton.disabled = true;
+    const isEmptyFop = requireFieldValidator(forgetEmail);
+    const fm= expressionValidator(forgetEmail, "email");
+    if(isEmptyFop == 0 && fm == true){
+        try{
+            const response = await fetch(`/api/v1/otp/${forgetEmail.value}`);
+            const {otp} = await response.json();
+            getOtpButton.disabled = false;
+            otpLabel.classList.remove('hidden')
+            otpInput.classList.remove('hidden')
+            verifyOtp.classList.remove('hidden') 
+            
+        }
+        catch(error){
+            console.log(error);
+        }
+    }
+
+})
+
 changePass.addEventListener('click', (e) => {
     e.preventDefault();
     const isEmptyReg = requireFieldValidator(forgetEmail, forgetPass, reForgetPass);
