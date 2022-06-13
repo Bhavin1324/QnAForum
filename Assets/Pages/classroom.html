@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../style.css">
+    <script src="https://kit.fontawesome.com/b361cd597d.js" crossorigin="anonymous"></script>
+    <script src="../JS/classroom.js" type="module" defer></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <nav class="bg-[#0e4667] text-white z-[2]">
+        <div class="container mx-auto flex flex-wrap justify-around">
+            <div class="branding flex">
+                <span class="self-center text-2xl lg:text-3xl font-casc mr-10">Cube</span>
+            </div>
+            <div class="profile-badge flex justify-center cursor-pointer relative group">
+                <img src="../images/user.jpg" alt="" draggable="false"
+                    class="md:h-[50px] md:w-[50px] h-[35px] w-[35px] rounded-full my-1 self-center">
+
+                <!-- User badeg -->
+                <div id="UserBadge" class="hidden lg:block self-center mx-2 relative"></div>
+                <div
+                    class="dropdown bg-[#1a6e9b] shadow-md rounded-md absolute top-10 md:top-14 lg:left-8 z-[2] hidden  group-hover:block">
+                    <div class="px-3 py-1 transition-all duration-200 hover:bg-[#075072] hover:rounded-md"><a
+                            href="./myProfile.html">Profile</a></div>
+                    <div class="px-3 py-1 transition-all duration-200 hover:bg-[#075072] hover:rounded-md"><a
+                            id="logout" href="/">Logout</a></div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-2 mx-auto flex justify-center">
+        <!-- left navigation -->
+        <div class="hidden md:inline-block navigation-v w-[20%]">
+            <ul class="mx-2 my-2 sticky top-14 z-0">
+                <a href="./Desk.html">
+                    <li
+                        class="ln my-1 py-2 px-2 ease-out hover:bg-slate-200 hover:border-l-2 hover:border-l-[#0c4363] cursor-pointer active-ln">
+                        <i class="fa fa-house pt-1 text-xl text-[#0c4363] hover:text-[#1b8c94] mr-3"></i>Questions
+                    </li>
+                </a>
+                <a href="#">
+                    <li
+                        class="ln my-1 py-2 px-2 hover:bg-slate-200 hover:border-l-2 hover:border-l-[#0c4363] cursor-pointer">
+                        <i
+                            class="fa fa-person-chalkboard pt-1 text-xl text-[#0c4363] hover:text-[#1b8c94] mr-3"></i>Classroom
+                    </li>
+                </a>
+                <a href="./myPosts.html">
+                    <li
+                        class="ln my-1 py-2 px-2 hover:bg-slate-200 hover:border-l-2 hover:border-l-[#0c4363] cursor-pointer">
+                        <i class="fa fa-address-card pt-1 text-xl text-[#0c4363] hover:text-[#1b8c94] mr-3"></i>My Posts
+                    </li>
+                </a>
+                <!-- <li
+                    class="ln help-ln my-1 py-2 px-2 hover:bg-slate-200 hover:border-l-2 hover:border-l-[#0c4363] cursor-pointer">
+                    <i class="fa fa-handshake-angle pt-1 text-xl text-[#0c4363] hover:text-[#1b8c94] mr-3"></i><a
+                        href="#" class="active:text-[#1b8c94]">Help</a>
+                </li> -->
+            </ul>
+        </div>
+        
+
+</body>
+
+</html>
