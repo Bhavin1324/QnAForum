@@ -234,7 +234,7 @@ async function postQuestion() {
                 body: JSON.stringify(data)
             });
             console.log(data);
-            location.reload();
+            // location.reload();
             history.go(-1);
             questionTitle.value = "";
             questionBody.value = "";
