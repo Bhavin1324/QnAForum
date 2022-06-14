@@ -68,4 +68,33 @@
     }
 }
 
+/* Loader */
+.loader {
+    border: 8px solid white;
+    border-bottom: 8px solid #0e4667;
+    border-top: 8px solid #0e4667;
+    height: 90px;
+    width: 90px;
+    border-radius: 50%;
+    animation: spinLoader 1s linear infinite;
+}
+.loader-bg {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    z-index: 999;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all .2s ease;
+}
+@keyframes spinLoader {
+    from{
+        transform: rotate(0deg);
+    }
+    to{
+        transform: rotate(360deg);
+    }
+}
 @tailwind utilities;
