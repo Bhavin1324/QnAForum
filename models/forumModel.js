@@ -35,8 +35,8 @@ const userSchema = new mongoose.Schema({
         required: [true, 'Require graduation year'],
         trim: true
     },
-    profileImage:{
-        type:String
+    profileImage: {
+        type: String
     }
 })
 
@@ -114,8 +114,34 @@ const answerSchema = new mongoose.Schema({
 
 })
 
+const classroomSchema = new mongoose.Schema({
+
+    userID: {
+        type: Array,
+        trim: true
+    },
+    className: {
+        type: String,
+        required:true,
+        trim:true
+    },
+    classCode:{
+        type:Number,
+        required:true,
+        trim:true
+    },
+    universityID:{
+        type:mongoose.Schema.Types.ObjectId,
+        required:true,
+        trim:true
+    }
+
+
+})
+
 const users = mongoose.model('users', userSchema);
 const university = mongoose.model('universities', uniSchema);
 const question = mongoose.model('questions', questionSchema);
 const answer = mongoose.model('answers', answerSchema);
-module.exports = { users, university, question, answer };
+const classroom = mongoose.model('classroom', classroomSchema);
+module.exports = { users, university, question, answer,classroom };
