@@ -87,7 +87,7 @@ async function getSpecificUser(id) {
 //! --- GET request for fetching all questions and dom population --- //
 let feedExist = document.querySelector('.feed-exist');
 let postContainer = document.querySelector('.post-content');
-async function getQuesitons(callback, callback2) {
+async function getQuestions(callback, callback2) {
     try {
         const usr = await getCurrentUser();
         const response = await fetch(`/api/v1/questions/${usr._id}`);
@@ -182,7 +182,7 @@ async function getQuesitons(callback, callback2) {
 
 //! Refresher for refreshing feed on home page
 const runRefresher = async () => {
-    await getQuesitons(utilWork, postAnswerUtil);
+    await getQuestions(utilWork, postAnswerUtil);
 }
 runRefresher();
 

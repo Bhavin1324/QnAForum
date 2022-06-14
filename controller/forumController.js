@@ -70,6 +70,10 @@ const deleteUser = async (req, res, next) => {
 const updateUser = async (req, res, next) => {
     try {
         const { id: userID } = req.params;
+        if(req.body.password){
+            encPass = cryptr.encrypt(req.body.password);
+            req.body.password = encPass;
+        }
         const newData = req.body;
         const userUpd = await users.findByIdAndUpdate({ _id: userID }, newData, {
             new: true,
