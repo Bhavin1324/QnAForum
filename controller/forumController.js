@@ -1,6 +1,6 @@
 const Cryptr = require('cryptr');
 const nodemailer = require('nodemailer');
-const { users, university, question, answer } = require('../models/forumModel');
+const { users, university, question, answer, classroom } = require('../models/forumModel');
 const cryptr = new Cryptr('RegistartionPassword');
 //!--- User access
 const getAllUsers = async (req, res, next) => {
@@ -275,10 +275,10 @@ const getOtp = async (req, res, next) => {
 
         transporter.sendMail(mailOptions, (err, success) => {
             if (err) {
-                res.status(404).json({msg:`No such user found with email${email}`})
+                res.status(404).json({ msg: `No such user found with email${email}` })
             }
             else {
-                res.status(200).json({otp})
+                res.status(200).json({ otp })
             }
         })
     }
@@ -286,6 +286,17 @@ const getOtp = async (req, res, next) => {
         res.status(500).json({ msg: err.message })
     }
 }
+
+const createClassroom = async (req, res, next) => {
+    try {
+        const classrooms = await classroom.create(req.body);
+        res.status(201).json({ classrooms });
+    }
+    catch (err) {
+        res.status(500).json({ msg: err });
+    }
+}
+
 module.exports = {
     getAllUsers,
     getUser,
@@ -304,5 +315,6 @@ module.exports = {
     deleteAnswer,
     updateAnswer,
     getAnswerByQuesId,
-    getOtp
+    getOtp,
+    createClassroom
 };

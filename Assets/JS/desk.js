@@ -1,5 +1,6 @@
 import requireFieldValidator from './validation.js';
 import { leftNavActive } from "./utility.js";
+
 leftNavActive();
 let loader = document.querySelector('.loader-bg');
 function loadComplete(){
@@ -13,6 +14,7 @@ let postVisiblity = document.querySelector('#post-visiblity');
 let postQuestionButton = document.querySelector('#post-question');
 // let postSearchBtn = document.querySelectorAll('.searchButton');
 let postSearchInput = document.querySelectorAll('.search-field');
+let deleteBtn;
 let postAnswerText;
 let postAnswerBtn;
 let checkAnony;
@@ -52,6 +54,26 @@ function postAnswerUtil() {
             }
         })
     })
+
+
+}
+function deleteAnswerUtil() {
+    deleteBtn = document.querySelectorAll('.delete-ans-btn');
+    deleteBtn.forEach(elem => {
+
+        elem.addEventListener('click', async (e) => {
+            e.preventDefault();
+            let ansId = elem.parentElement.parentElement.nextElementSibling.children[0].innerText;
+            const response = await fetch(`/api/v1/answers/${ansId}`, {
+                method: 'DELETE',
+                headers: {
+                    'content-type': 'application/json;charset=utf-8'
+                },
+            });
+            runRefresher();
+        })
+
+    });
 }
 
 
@@ -92,7 +114,7 @@ async function getSpecificUser(id) {
 //! --- GET request for fetching all questions and dom population --- //
 let feedExist = document.querySelector('.feed-exist');
 let postContainer = document.querySelector('.post-content');
-async function getQuestions(callback, callback2) {
+async function getQuestions(callback, callback2, callback3) {
     try {
         const response = await fetch('/api/v1/questions');
         const { questions } = await response.json();
@@ -119,18 +141,21 @@ async function getQuestions(callback, callback2) {
             else {
                 givenAns = await Promise.all(ans.map(async (answer) => {
                     let uAnswer = await getSpecificUser(answer.userID);
+                    let curUser = await getCurrentUser();
                     return `<div class="py-4">
                         <div class="posted-Comment">
                             <div class="header px-2">
                                 <div class="dp flex gap-1">
                                     <img src="../images/user.jpg" alt="" class="mt-2 h-[40px] w-[40px] rounded-full">
                                     <div class="name-panel flex flex-col justify-center">
-                                        <div class="username mx-3 ${(answer.anonymous == true)? 'block' : 'hidden'}">Anonymous</div>
-                                        <div class="username mx-3 ${(answer.anonymous == false)?'block':'hidden'}">${uAnswer.name}</div>
+                                        <div class="username mx-3 ${(answer.anonymous == true) ? 'block' : 'hidden'}">Anonymous</div>
+                                        <div class="username mx-3 ${(answer.anonymous == false) ? 'block' : 'hidden'}">${uAnswer.name}</div>
                                     </div>
+                                    <button type="submit" class="delete-ans-btn ml-auto ${(curUser._id == answer.userID) ? 'block' : 'hidden'}"><i class="my-4 fa-solid fa-trash-can"></i></button>
                                 </div>
                             </div>
                             <div class="main p-0 pt-2 lg:px-4 lg:pt-1 lg:pb-4">
+                                <div class="hidden">${answer._id}</div>
                                 <div class="text-content">${answer.description}</div>
                             </div>
                         </div>
@@ -175,7 +200,9 @@ async function getQuestions(callback, callback2) {
         </div>`
             callback();
             callback2();
+            callback3();
         })
+
     }
     catch (error) {
         feedExist.textContent = `Oops! Something went wrong :(`;
@@ -184,7 +211,7 @@ async function getQuestions(callback, callback2) {
 
 //! Refresher for refreshing feed on home page
 const runRefresher = async () => {
-    await getQuestions(utilWork, postAnswerUtil);
+    await getQuestions(utilWork, postAnswerUtil, deleteAnswerUtil);
 }
 runRefresher();
 
@@ -265,7 +292,7 @@ async function postAnswer(description, anony, quesID) {
 
 
 //! --- Search functionality ---//
-function searchPosts(){
+function searchPosts() {
     postSearchInput.forEach(inpText => {
         let flag = 0, elem;
         inpText.addEventListener('input', () => {
