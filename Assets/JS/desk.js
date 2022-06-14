@@ -3,10 +3,10 @@ import { leftNavActive } from "./utility.js";
 
 leftNavActive();
 let loader = document.querySelector('.loader-bg');
-function loadComplete(){
+function loadComplete() {
     loader.style.display = 'none';
 }
-setTimeout(loadComplete,2000);
+setTimeout(loadComplete, 2000);
 // DOM elements 
 let questionTitle = document.querySelector('#ques');
 let questionBody = document.querySelector('#ques-body');
@@ -70,7 +70,7 @@ function deleteAnswerUtil() {
                     'content-type': 'application/json;charset=utf-8'
                 },
             });
-            runRefresher();
+            await runRefresher();
         })
 
     });
@@ -173,7 +173,7 @@ async function getQuestions(callback, callback2, callback3) {
                     </div>
                     <div class="checkWrapper ml-auto select-none">
                     <input type="checkbox" id="ckbox-${index + 1}" class="peer opacity-0 z-0">
-                    <label for="ckbox-${index + 1}" class="check-box pl-2">Anonymous</label>
+                    <label for="ckbox-${index + 1}" class="check-box pl-2">Answer as 'Anonymous'</label>
                 </div>
                 </div>
             </div>
@@ -197,7 +197,7 @@ async function getQuestions(callback, callback2, callback3) {
             <div class="comment-wrapper md:mx-4 border-[1px] px-7 rounded-b-lg shadow-md bg-slate-200 max-h-0 overflow-auto transition-all duration-200">
                 ${(f == 0 ? givenAns : emptyAns)}
             </div>
-        </div>`
+        </div>`;
             callback();
             callback2();
             callback3();
@@ -213,7 +213,7 @@ async function getQuestions(callback, callback2, callback3) {
 const runRefresher = async () => {
     await getQuestions(utilWork, postAnswerUtil, deleteAnswerUtil);
 }
-runRefresher();
+await runRefresher();
 
 
 //! --- posting questions --- //
@@ -239,7 +239,7 @@ async function postQuestion() {
             questionTitle.value = "";
             questionBody.value = "";
             postVisiblity.value = "false";
-            runRefresher();
+            await runRefresher();
         }
     }
     catch (error) {
@@ -282,7 +282,7 @@ async function postAnswer(description, anony, quesID) {
             headers: { 'content-type': 'application/json;charset=utf-8' },
             body: JSON.stringify(AnswerData)
         })
-        runRefresher();
+        await runRefresher();
 
     }
     catch (error) {

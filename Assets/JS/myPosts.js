@@ -168,7 +168,7 @@ async function getQuestions(callback, callback2, callback3) {
                     </div>
                     <div class="checkWrapper ml-auto select-none">
                     <input type="checkbox" id="ckbox-${index + 1}" class="peer opacity-0 z-0">
-                    <label for="ckbox-${index + 1}" class="check-box pl-2">Anonymous</label>
+                    <label for="ckbox-${index + 1}" class="check-box pl-2">Answer as 'Anonymous'</label>
                 </div>
                 </div>
             </div>

@@ -14,8 +14,9 @@
 <body>
     <nav class="bg-[#0e4667] text-white z-[2]">
         <div class="container mx-auto flex flex-wrap justify-around">
-            <div class="branding flex">
-                <span class="self-center text-2xl lg:text-3xl font-casc mr-10">Cube</span>
+            <div class="branding flex ">
+                <img src="../images/logo.png" alt="Cube" class="w-[80px]">
+                <span class="self-center text-2xl font-casc mr-10">Cube</span>
             </div>
             <div class="profile-badge flex justify-center cursor-pointer relative group">
                 <img src="../images/user.jpg" alt="" draggable="false"
@@ -35,12 +36,16 @@
     </nav>
     <nav class="bg-slate-100 py-1 sticky top-0 z-[1] overflow-auto">
         <div class="nav-wrapper mx-auto flex justify-center sm:gap-4 gap-2 container">
-            <div class="question md:hidden bg-slate-300 border-b-2 border-[#0c4363] rounded-md">
+            <div class="question md:hidden ">
                 <a href="#"><i class="fa fa-house pt-3 mx-3 text-lg text-[#0c4363] hover:text-[#1b8c94]"></i></a>
             </div>
-            <div class="classroom md:hidden">
+            <!-- <div class="classroom md:hidden">
                 <a href=""><i
                         class="fa fa-person-chalkboard pt-3 mx-3 text-lg text-[#0c4363] hover:text-[#1b8c94]"></i></a>
+            </div> -->
+            <div class="myProfile md:hidden bg-slate-300 border-b-2 border-[#0c4363] rounded-md">
+                <a href=""><i
+                        class="fa fa-user-pen pt-3 mx-3 text-lg text-[#0c4363] hover:text-[#1b8c94]"></i></a>
             </div>
             <div class="mypost md:hidden">
                 <a href="./myPosts.html"><i
@@ -69,15 +74,22 @@
             <ul class="mx-2 my-2 sticky top-14 z-0">
                 <a href="./Desk.html">
                     <li
-                        class="ln my-1 py-2 px-2 ease-out hover:bg-slate-200 hover:border-l-2 hover:border-l-[#0c4363] cursor-pointer active-ln">
+                        class="ln my-1 py-2 px-2 ease-out hover:bg-slate-200 hover:border-l-2 hover:border-l-[#0c4363] cursor-pointer">
                         <i class="fa fa-house pt-1 text-xl text-[#0c4363] hover:text-[#1b8c94] mr-3"></i>Questions
                     </li>
                 </a>
-                <a href="./classroom.html">
+                <!-- <a href="./classroom.html">
                     <li
                         class="ln my-1 py-2 px-2 hover:bg-slate-200 hover:border-l-2 hover:border-l-[#0c4363] cursor-pointer">
                         <i
                             class="fa fa-person-chalkboard pt-1 text-xl text-[#0c4363] hover:text-[#1b8c94] mr-3"></i>Classroom
+                    </li>
+                </a> -->
+                <a href="./myProfile.html">
+                    <li
+                        class="ln my-1 py-2 px-2 hover:bg-slate-200 hover:border-l-2 hover:border-l-[#0c4363] cursor-pointer active-ln">
+                        <i
+                            class="fa fa-user-pen pt-1 text-xl text-[#0c4363] hover:text-[#1b8c94] mr-3"></i>My Profile
                     </li>
                 </a>
                 <a href="./myPosts.html">
