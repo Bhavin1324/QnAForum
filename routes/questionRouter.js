@@ -5,11 +5,12 @@ const{
     createQuestion,
     deleteQuestion,
     updateQuestion,
-    getQuestionByUserId
+    getQuestionByUserId,
+    getQuestionByUni
 } = require('../controller/forumController');
 
 
 router.route('/').get(getAllQuestions).post(createQuestion);
 router.route('/:id').get(getQuestionByUserId).delete(deleteQuestion).patch(updateQuestion);
-
+router.route('/byUni/:uniId').get(getQuestionByUni);
 module.exports = router;

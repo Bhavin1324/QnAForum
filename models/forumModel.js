@@ -78,6 +78,9 @@ const questionSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
         trim: true
+    },
+    universityID:{
+        type:mongoose.Schema.Types.ObjectId
     }
 
 })

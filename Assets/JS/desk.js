@@ -116,14 +116,17 @@ let feedExist = document.querySelector('.feed-exist');
 let postContainer = document.querySelector('.post-content');
 async function getQuestions(callback, callback2, callback3) {
     try {
-        const response = await fetch('/api/v1/questions');
-        const { questions } = await response.json();
-        if (questions.length < 1) {
+        const uniId = sessionStorage.getItem('university');
+        // console.log(uniId);
+
+        const response = await fetch(`/api/v1/questions/byUni/${uniId}`);
+        const { quesByUni } = await response.json();
+        if (quesByUni.length < 1) {
             feedExist.textContent = `No feed found! :(`;
             return;
         }
         postContainer.innerHTML = `<div class="feed-exist mx-4 text-slate-400 text-center text-xl"></div>`;
-        questions.forEach(async (ques, index) => {
+        quesByUni.forEach(async (ques, index) => {
             const u = await getSpecificUser(ques.userID);
             let ans = await getAnsByQid(ques._id);
             let emptyAns = "", f = 0;
@@ -219,6 +222,8 @@ await runRefresher();
 //! --- posting questions --- //
 async function postQuestion() {
     try {
+        const uniId = sessionStorage.getItem('university');
+
         const fieldEmpty = requireFieldValidator(questionTitle);
         if (fieldEmpty == 0) {
             const user = await getCurrentUser();
@@ -226,7 +231,8 @@ async function postQuestion() {
                 title: questionTitle.value,
                 description: questionBody.value,
                 userID: user._id,
-                anonymous: postVisiblity.value
+                anonymous: postVisiblity.value,
+                universityID: uniId
             }
             const response = await fetch('/api/v1/questions', {
                 method: 'POST',
@@ -239,6 +245,7 @@ async function postQuestion() {
             questionTitle.value = "";
             questionBody.value = "";
             postVisiblity.value = "false";
+
             await runRefresher();
         }
     }

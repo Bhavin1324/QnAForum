@@ -121,6 +121,8 @@ async function userSwill(elem, passelem) {
                 }
                 return false;
             }
+            const uni = await verifyUniversity(elem);
+            sessionStorage.setItem('university',uni._id);
             sessionStorage.setItem('email', singleUser.email);
             sessionStorage.setItem('name', singleUser.name);
             return true;

@@ -177,6 +177,19 @@ const getQuestionByUserId = async (req, res) => {
         res.status(500).json({ msg: err })
     }
 }
+const getQuestionByUni = async (req, res) => {
+    try {
+        const { uniId: uniId } = req.params
+        const quesByUni = await question.find({ universityID: uniId })
+        if (!quesByUni) {
+            res.status(404).json({ msg: `no answers found for ID: ${uniId}` })
+        }
+        res.status(200).json({ quesByUni })
+    }
+    catch (err) {
+        res.status(500).json({ msg: err })
+    }
+}
 
 //! ---answer controller
 const getAllAnswers = async (req, res) => {
@@ -297,6 +310,8 @@ const createClassroom = async (req, res, next) => {
     }
 }
 
+
+
 module.exports = {
     getAllUsers,
     getUser,
@@ -307,6 +322,7 @@ module.exports = {
     getUniversity,
     getAllQuestions,
     getQuestionByUserId,
+    getQuestionByUni,
     createQuestion,
     deleteQuestion,
     updateQuestion,
