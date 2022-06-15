@@ -297,6 +297,30 @@ const createClassroom = async (req, res, next) => {
     }
 }
 
+
+const createUniversity = async (req, res, next) => {
+    try{
+        const universities = await university.create(req.body);
+        res.status(201).json({universities})
+    }
+    catch(error){
+        res.status(500).json({msg:error});
+    }
+}
+
+const getAllUniversity = async (req, res, next) =>{
+    try {
+        const universities = await university.find({});
+        if (!universities) {
+            return res.status(404).json({ error: `No universities found` });
+        }
+        res.status(200).json({ universities })
+    }
+    catch (err) {
+        res.status(500).json({ msg: err })
+    }
+}
+
 module.exports = {
     getAllUsers,
     getUser,
@@ -316,5 +340,7 @@ module.exports = {
     updateAnswer,
     getAnswerByQuesId,
     getOtp,
-    createClassroom
+    createClassroom,
+    createUniversity,
+    getAllUniversity
 };
