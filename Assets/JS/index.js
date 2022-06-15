@@ -55,7 +55,12 @@ login.addEventListener('click', async (e) => {
     const logP = expressionValidator(loginPass, "password");
     const loginStatus = await userSwill(loginEmail, loginPass);
     if (isEmptyLogin == 0 && logE == true && logP == true && loginStatus == true) {
-        location.replace('../Pages/Desk.html');
+        if(loginEmail.value == 'admin@cube.com' && loginPass.value == 'admin123'){
+            location.replace('../Pages/admin.html');
+        }
+        else{
+            location.replace('../Pages/Desk.html');
+        }
     }
 })
 

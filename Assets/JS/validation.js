@@ -60,7 +60,9 @@ function expressionValidator(elem, fieldType) {
         case "email":
             regEx = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
             return generalizedRegex(elem, regEx, 'Invalid email');
-
+        case "emailPostfix":
+            regEx = /[a-z]{2,3}\.(?=\w)[a-z]{2,3}\.?[a-z]?/;
+            return generalizedRegex(elem, regEx, 'Invalid postfix structure');
         default:
             return `Invalid fieldType ${fieldType}`
     }
