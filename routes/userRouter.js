@@ -5,7 +5,7 @@ const {
     createUser,
     deleteUser,
     getUser,
-    updateUser,
+    updateUser
 
 } = require('../controller/forumController');
 
