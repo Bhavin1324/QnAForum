@@ -1,4 +1,4 @@
-import requireFieldValidator from './validation.js';
+import requireFieldValidator, { verifyUniversity } from './validation.js';
 import { leftNavActive } from "./utility.js";
 
 let loader = document.querySelector('.loader-bg');
@@ -15,6 +15,7 @@ let postVisiblity = document.querySelector('#post-visiblity');
 let postQuestionButton = document.querySelector('#post-question');
 // let postSearchBtn = document.querySelectorAll('.searchButton');
 let postSearchInput = document.querySelectorAll('.search-field');
+
 let postAnswerText;
 let postAnswerBtn;
 let deleteBtn;
@@ -220,6 +221,8 @@ await runRefresher();
 //! --- posting questions --- //
 async function postQuestion() {
     try {
+        const uniId = sessionStorage.getItem('university');
+
         const fieldEmpty = requireFieldValidator(questionTitle);
         if (fieldEmpty == 0) {
             const user = await getCurrentUser();
@@ -227,7 +230,8 @@ async function postQuestion() {
                 title: questionTitle.value,
                 description: questionBody.value,
                 userID: user._id,
-                anonymous: postVisiblity.value
+                anonymous: postVisiblity.value,
+                universityID: uniId
             }
             const response = await fetch('/api/v1/questions', {
                 method: 'POST',
