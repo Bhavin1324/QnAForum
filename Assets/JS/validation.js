@@ -54,7 +54,7 @@ function expressionValidator(elem, fieldType) {
             return generalizedRegex(elem, regEx, 'Invalid name');
 
         case "password":
-            regEx = /^(?=.*\d)(?=.*[a-z]).{6,}$/;
+            regEx = /^(?=.*\d)(?=.*[a-zA-Z]).{6,}$/;
             return generalizedRegex(elem, regEx, 'Password should contain digits, characters and length >= 6');
 
         case "email":
