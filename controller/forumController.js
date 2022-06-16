@@ -2,6 +2,7 @@ const Cryptr = require('cryptr');
 const nodemailer = require('nodemailer');
 const { users, university, question, answer, classroom } = require('../models/forumModel');
 const cryptr = new Cryptr('RegistartionPassword');
+require('dotenv').config();
 //!--- User access
 const getAllUsers = async (req, res, next) => {
     try {
@@ -271,15 +272,15 @@ const getOtp = async (req, res, next) => {
         const transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-                user: 'cubeqnaforum@gmail.com',
-                pass: 'qjyzdhsuxcazizto'
+                user: process.env.SYSTEM_MAIL,
+                pass: process.env.MAIL_PASS
             },
             tls: {
                 rejectUnauthorized: false
             }
         });
         const mailOptions = {
-            from: 'cubeqnaforum@gmail.com',
+            from: process.env.SYSTEM_MAIL,
             to: String(email),
             subject: 'Cube: OTP for resetting password',
             text: `Your one time passwrord is ${otp}. Please do not share it with anyone.`
