@@ -3,6 +3,8 @@ import { expressionValidator, userSwill, enrollUser, verifyUniversity, loginEmai
 import hamResponse from './utility.js';
 hamResponse();
 let currentOtp;
+
+//! --- DOM element for forgot password
 const getOtpButton = document.querySelector('.get-otp-btn');
 const verifyButton = document.querySelector('.verify-otp');
 
@@ -12,6 +14,12 @@ const verifyOtp = document.querySelector('.verify-otp');
 const getOtpLoading = document.querySelector('.get-otp-loading');
 const mainPasswordForm = document.querySelector('.main-pass-form');
 
+
+//! --- DOM element for registartion verification
+const regDataVeriBtn = document.querySelector('#veri-reg-data');
+const regOtpLabel = document.querySelector('.reg-otp-lbl');
+const regOtpInput = document.querySelector('#otp-reg');
+const sendingRegOtp = document.querySelector('#sending-reg-otp');
 async function isUserExist(email) {
     try {
         const response = await fetch(`/api/v1/users/user/${email.value}`);
@@ -26,6 +34,7 @@ async function isUserExist(email) {
         return false;
     }
 }
+//!--- Reseting state after updation of password
 function resetState() {
     forgetEmail.value = "";
     forgetPass.value = "";
@@ -37,6 +46,8 @@ function resetState() {
     otpInput.classList.add('hidden');
     verifyOtp.classList.add('hidden');
 }
+
+//!--- Login functionality
 login.addEventListener('click', async (e) => {
     e.preventDefault();
     const isEmptyLogin = requireFieldValidator(loginEmail, loginPass);
@@ -44,9 +55,16 @@ login.addEventListener('click', async (e) => {
     const logP = expressionValidator(loginPass, "password");
     const loginStatus = await userSwill(loginEmail, loginPass);
     if (isEmptyLogin == 0 && logE == true && logP == true && loginStatus == true) {
-        location.replace('../Pages/Desk.html');
+        if(loginEmail.value == 'admin@cube.com' && loginPass.value == 'admin123'){
+            location.replace('../Pages/admin.html');
+        }
+        else{
+            location.replace('../Pages/Desk.html');
+        }
     }
 })
+
+// !--- Signup Button
 signUp.addEventListener('click', async (e) => {
     e.preventDefault();
     const isEmptyReg = requireFieldValidator(firstName, lastName, regEmail, regPass, dateOfBirth, sem, gradYear);
@@ -54,16 +72,83 @@ signUp.addEventListener('click', async (e) => {
     const regP = expressionValidator(regPass, "password");
     const fn = expressionValidator(firstName, "name");
     const ln = expressionValidator(lastName, "name");
-    if (isEmptyReg == 0 && regE == true && regP == true && fn == true && ln == true) {
-        const enrollStatus = await enrollUser();
-        if (enrollStatus == true) {
-            alert('You are successfully registered');
-            location.replace('/');
+    const verUni = await verifyUniversity(regEmail);
+    if (isEmptyReg == 0 && regE == true && regP == true && fn == true && ln == true && verUni != null) {
+        const otpReq = requireFieldValidator(regOtpInput);
+        if (Number(regOtpInput.value.trim()) === currentOtp && otpReq == 0) {
+            const enrollStatus = await enrollUser();
+            if (enrollStatus == true) {
+                alert('You are successfully registered');
+                location.replace('/');
+                regOtpInput.value = "";
+                regOtpInput.parentElement.previousElementSibling.removeChild(span);
+            }
+        }
+        else {
+            const mailInfo = document.querySelector('#emailRegInformation');
+            if (mailInfo) {
+                regOtpInput.removeChild(mailInfo);
+            }
+            let span = document.createElement('span');
+            span.textContent = `OTP didn't match`;
+            span.style.color = 'red';
+            span.style.margin = '0px 6px';
+            span.style.fontSize = '16px';
+            regOtpInput.style.borderColor = 'red';
+            regOtpInput.classList.add('focus:ring-red-500');
+            if (regOtpInput.parentElement.previousElementSibling.childElementCount == 0) {
+                regOtpInput.parentElement.previousElementSibling.appendChild(span);
+            }
         }
     }
+});
 
+regDataVeriBtn.addEventListener('click', async (e) => {
+    e.preventDefault();
+    const isEmptyReg = requireFieldValidator(firstName, lastName, regEmail, regPass, dateOfBirth, sem, gradYear);
+    const regE = expressionValidator(regEmail, "email");
+    const regP = expressionValidator(regPass, "password");
+    const fn = expressionValidator(firstName, "name");
+    const ln = expressionValidator(lastName, "name");
+    const verUni = await verifyUniversity(regEmail);
+    if (isEmptyReg == 0 && regE == true && regP == true && fn == true && ln == true && verUni != null) {
+        try {
+            regOtpInput.classList.add('hidden');
+            regOtpLabel.classList.add('hidden');
+            signUp.classList.add('hidden');
+            sendingRegOtp.classList.remove('hidden');
+            regDataVeriBtn.classList.add('hidden');
+            const response = await fetch(`/api/v1/otp/${regEmail.value}`);
+            const { otp } = await response.json();
+            sendingRegOtp.classList.add('hidden');
+            regDataVeriBtn.classList.remove('hidden');
+            currentOtp = otp;
+            regOtpInput.classList.remove('hidden');
+            regOtpLabel.classList.remove('hidden');
+            signUp.classList.remove('hidden');
+            let elem = document.createElement('span');
+            elem.id = 'emailRegInformation';
+            elem.style.color = 'white';
+            elem.style.marginLeft = '6px';
+            elem.style.padding = '2px 8px 2px 8px';
+            elem.style.backgroundColor = '#0e4667';
+            elem.style.borderRadius = '12px';
+            elem.style.fontSize = '14px';
+            elem.textContent = 'Check your email or spam section of the email';
+            regOtpLabel.appendChild(elem);
+            setTimeout(() => {
+                regOtpLabel.removeChild(elem);
+            }, 5000);
+        }
+        catch (error) {
+            alert('Unable to verify data. Try again!');
+            console.log(error);
+        }
+    }
 })
 
+
+//! --- Get Otp Functionality for forgot password
 getOtpButton.addEventListener('click', async (e) => {
     e.preventDefault();
     const isEmptyFop = requireFieldValidator(forgetEmail);
@@ -114,6 +199,7 @@ getOtpButton.addEventListener('click', async (e) => {
 
 })
 
+//! Verification of Otp for forgot password
 verifyButton.addEventListener('click', async (e) => {
     e.preventDefault();
     const ofi = requireFieldValidator(otpInput)

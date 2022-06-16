@@ -187,9 +187,15 @@
                                 class="radio-btn">Student</label>
                         </div>
                     </div> -->
-                    <div class="mb-6">
+                    <div class="mb-6 w-fit ml-auto">
+                        <button name="verify" id="veri-reg-data" class="cool-btn">Verify Details</button>
+                        <button id="sending-reg-otp" class="cool-btn hidden">Sending OTP...</button>
+                    </div>
+                    <div class="text-lg reg-otp-lbl hidden">Enter OTP</div>
+                    <div><input type="text" id="otp-reg" class="otp form-inputBox hidden"></div>
+                    <div class="mb-6 w-fit ml-auto">
                         <button type="submit" value="submit" name="submit" id="signup"
-                            class="cool-btn">Register</button>
+                            class="cool-btn hidden">Register</button>
                     </div>
                 </form>
             </div>
@@ -228,28 +234,6 @@
             </div>
         </div>
     </div>
-    <!-- Forgot password -->
-    <!-- <div id="changePassForm"
-        class="z-[2] fixed top-0 left-0 bottom-0 right-0 bg-[rgba(0,0,0,.8)] hidden target:block select-none">
-        <div
-            class=" w-full sm:w-[80%] md:[60%] lg:w-[50%] wrapper my-[10px] sm:my-[30px] lg:my-[50px] mx-auto bg-[#d4efea] relative rounded-lg">
-            <a href="#login" class="close absolute top-2 right-6 font-bold text-2xl">&times;</a>
-            <div class="content max-h-[50%] overflow-auto">
-                <h3 class="text-2xl font-semibold text-center mt-11 mb-4">Change your <span
-                        class="font-casc bg-[#0e4667] text-white px-1 py-2 rounded-md">Cube</span> Password</h3>
-                <form action="" method="post" class="w-[80%] my-1 mx-auto">
-                    <div class="text-lg">Password</div>
-                    <div><input type="password" name="fppass" id="fppass" class="Password form-inputBox"></div>
-                    <div class="text-lg">Re-enter Password</div>
-                    <div><input type="password" name="refppass" id="refppass" class="Password form-inputBox"></div>
-                    <div class="mb-6 text-right">
-                        <button type="submit" value="submit" name="submit" id="changePass" class="cool-btn">Change
-                            password</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div> -->
 </body>
 <script>
     const elems = document.querySelectorAll('section');

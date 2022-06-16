@@ -1,5 +1,12 @@
 import requireFieldValidator, { verifyUniversity } from './validation.js';
 import { leftNavActive } from "./utility.js";
+
+let loader = document.querySelector('.loader-bg');
+function loadComplete() {
+    loader.style.display = 'none';
+}
+setTimeout(loadComplete, 2000);
+
 leftNavActive();
 // DOM elements 
 let questionTitle = document.querySelector('#ques');
@@ -65,7 +72,7 @@ function deleteAnswerUtil() {
                     'content-type': 'application/json;charset=utf-8'
                 },
             });
-            runRefresher();
+            await runRefresher();
         })
 
     });
@@ -209,7 +216,7 @@ async function getQuestions(callback, callback2, callback3) {
 const runRefresher = async () => {
     await getQuestions(utilWork, postAnswerUtil, deleteAnswerUtil);
 }
-runRefresher();
+await runRefresher();
 
 //! --- posting questions --- //
 async function postQuestion() {
@@ -232,12 +239,12 @@ async function postQuestion() {
                 body: JSON.stringify(data)
             });
             console.log(data);
-            location.reload();
+            // location.reload();
             history.go(-1);
             questionTitle.value = "";
             questionBody.value = "";
             postVisiblity.value = "false";
-            runRefresher();
+            await runRefresher();
         }
     }
     catch (error) {
@@ -280,7 +287,7 @@ async function postAnswer(description, anony, quesID) {
             headers: { 'content-type': 'application/json;charset=utf-8' },
             body: JSON.stringify(AnswerData)
         })
-        runRefresher();
+        await runRefresher();
 
     }
     catch (error) {
