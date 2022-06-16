@@ -1,6 +1,6 @@
 import requireFieldValidator from './validation.js';
 import { leftNavActive } from "./utility.js";
-import { verifyUniversity, expressionValidator } from './validation.js';
+import { expressionValidator } from './validation.js';
 
 const firstName = document.querySelector('#fname');
 const lastName = document.querySelector('#lname');
@@ -46,6 +46,34 @@ async function loadData() {
     gradYear.value = userData.graduationYear;
     sem.value = userData.semester;
 }
+async function verifyUniversity(emailField) {
+    let emailFrag = emailField.value.split('@');
+    let emailPostfix = emailFrag[1];
+    try {
+        const response = await fetch(`/api/v1/universities/${emailPostfix}`);
+        if (response.status == 200) {
+            const { uni } = await response.json();
+            return uni;
+        }
+        else {
+            let span = document.createElement('span');
+            span.textContent = `Unregistered University`;
+            span.style.color = 'red';
+            span.style.margin = '0px 6px';
+            span.style.fontSize = '16px';
+            emailField.style.borderColor = 'red';
+            emailField.classList.add('focus:ring-red-500');
+            if (emailField.parentElement.previousElementSibling.childElementCount == 0) {
+                emailField.parentElement.previousElementSibling.appendChild(span);
+            }
+            return null;
+        }
+    }
+    catch (error) {
+        return null;
+    }
+
+}
 updateBtn.addEventListener('click', async (e) => {
     e.preventDefault();
     try {
@@ -54,6 +82,7 @@ updateBtn.addEventListener('click', async (e) => {
         const fn = expressionValidator(firstName, "name");
         const ln = expressionValidator(lastName, "name");
         const verifyUni = await verifyUniversity(profEmail);
+        console.log(verifyUni);
         // const isEmptyPass = requireFieldValidator(currPass, newPass);
 
         let newpassword = "";
@@ -92,7 +121,9 @@ updateBtn.addEventListener('click', async (e) => {
             if (response.status == 200) {
                 location.reload();
                 sessionStorage.setItem('name', firstName.value.trim() + " " + lastName.value.trim())
-                sessionStorage.setItem('email',profEmail.value);
+                sessionStorage.setItem('email', profEmail.value);
+                // const uni = verifyUniversity(profEmail);
+                sessionStorage.setItem('university', verifyUni._id);
                 alert('Profile updated successfully');
             }
         }
