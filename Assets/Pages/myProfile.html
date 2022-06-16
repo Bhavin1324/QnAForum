@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../style.css">
     <script src="https://kit.fontawesome.com/b361cd597d.js" crossorigin="anonymous"></script>
-    <script src="../JS/profileEdit.js" type="module" defer></script>
+    <script src="../JS/myProfile.js" type="module" defer></script>
     <title>Document</title>
 </head>
 
@@ -44,8 +44,7 @@
                         class="fa fa-person-chalkboard pt-3 mx-3 text-lg text-[#0c4363] hover:text-[#1b8c94]"></i></a>
             </div> -->
             <div class="myProfile md:hidden bg-slate-300 border-b-2 border-[#0c4363] rounded-md">
-                <a href=""><i
-                        class="fa fa-user-pen py-3 mx-3 text-lg text-[#0c4363] hover:text-[#1b8c94]"></i></a>
+                <a href=""><i class="fa fa-user-pen py-3 mx-3 text-lg text-[#0c4363] hover:text-[#1b8c94]"></i></a>
             </div>
             <div class="mypost md:hidden">
                 <a href="./myPosts.html"><i
@@ -88,8 +87,7 @@
                 <a href="./myProfile.html">
                     <li
                         class="ln my-1 py-2 px-2 hover:bg-slate-200 hover:border-l-2 hover:border-l-[#0c4363] cursor-pointer active-ln">
-                        <i
-                            class="fa fa-user-pen pt-1 text-xl text-[#0c4363] hover:text-[#1b8c94] mr-3"></i>My Profile
+                        <i class="fa fa-user-pen pt-1 text-xl text-[#0c4363] hover:text-[#1b8c94] mr-3"></i>My Profile
                     </li>
                 </a>
                 <a href="./myPosts.html">
@@ -159,20 +157,18 @@
                             </select></div>
                     </div>
                 </div>
-                <!-- <div class="text-lg mb-1">Register as</div>
-                    <div class="radio-wrapper flex gap-4">
-                        <div class="form-radio">
-                            <input type="radio" name="ras" id="prof" class="peer hidden"><label for="prof"
-                                class="radio-btn">Professor</label>
-                        </div>
-                        <div class="form-radio">
-                            <input type="radio" name="ras" id="stud" class="peer hidden"><label for="stud"
-                                class="radio-btn">Student</label>
-                        </div>
-                    </div> -->
+                <div class="text-lg">
+                    <div>Current Password</div>
+                    <div><input type="password" name="currPass" id="currPass" class="curr-pass form-inputBox"></div>
+                </div>
+                <div class="text-lg">
+                    <div>New Password</div>
+                    <div><input type="password" name="newPass" id="newPass" class="new-pass form-inputBox"></div>
+                </div>
                 <div class="mb-6">
                     <button type="submit" value="submit" name="update" id="updateProfile"
                         class="cool-btn">Update</button>
+                    <!-- <a href="#" class="underline">Change Password</a> -->
                 </div>
             </form>
         </div>
