@@ -1,0 +1,4 @@
+MONGO_URI = mongodb+srv://forum-dba:forum-dba-pwd@forum.1v0tbpv.mongodb.net/forumDB?retryWrites=true&w=majority
+
+SYSTEM_MAIL = cubeqnaforum@gmail.com
+MAIL_PASS = qjyzdhsuxcazizto
