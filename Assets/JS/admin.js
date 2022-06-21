@@ -60,6 +60,7 @@ async function postUniversity(){
 addUni.addEventListener('click',async (e)=>{
     e.preventDefault();
     const reqF = requireFieldValidator(uniName, uniPostfix);
+    const nmValid = expressionValidator(uniName, "name");
     const pfValid = expressionValidator(uniPostfix,"emailPostfix");
     if(reqF == 0 && pfValid == true){
         await postUniversity();
