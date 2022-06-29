@@ -3,10 +3,8 @@ import { leftNavActive } from "./utility.js";
 
 leftNavActive();
 let loader = document.querySelector('.loader-bg');
-function loadComplete() {
-    loader.style.display = 'none';
-}
-setTimeout(loadComplete, 2000);
+window.addEventListener('load',()=>{ loader.style.display = 'none'; })
+
 // DOM elements 
 let questionTitle = document.querySelector('#ques');
 let questionBody = document.querySelector('#ques-body');

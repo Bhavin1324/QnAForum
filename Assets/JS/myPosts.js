@@ -2,10 +2,7 @@ import requireFieldValidator, { verifyUniversity } from './validation.js';
 import { leftNavActive } from "./utility.js";
 
 let loader = document.querySelector('.loader-bg');
-function loadComplete() {
-    loader.style.display = 'none';
-}
-setTimeout(loadComplete, 2000);
+window.addEventListener('load',()=>{ loader.style.display = 'none'; });
 
 leftNavActive();
 // DOM elements 
